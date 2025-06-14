@@ -31,11 +31,11 @@ Welcome to the official GitHub repository for ByteSimple’s agency website — 
 | Tailwind CSS    | Utility-first CSS styling     |
 | TypeScript      | Type-safe JavaScript          |
 | Framer Motion   | Smooth animations             |
-| Vercel          | Deployment platform (optional)|
+| Express js      | Backend                       |
 
 ---
 
-## 📂 Project Structure
+
 
 ## To run the backend
 
