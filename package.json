@@ -1,0 +1,15 @@
+{
+  "name": "zero2one",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client && npm run dev",
+    "admin": "cd admin && npm run dev",
+    "server": "",
+    "dev": "start bash -c npm run client"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

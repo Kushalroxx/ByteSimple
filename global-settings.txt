@@ -1,0 +1,14 @@
+// Global colours
+
+background - bg-neutral-900, bg-black
+
+titles - #e3e3e3
+
+descriptions texts - #b5b4b2
+
+numbering - #7d7d7d
+
+plates - #dadbd9
+
+cards - #333334 (if no image)
+
