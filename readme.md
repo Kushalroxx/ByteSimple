@@ -2,7 +2,7 @@
 
 Welcome to the official GitHub repository for ByteSimple’s agency website — a fast, modern, and responsive site built to showcase our services, portfolio, and processes.
 
-![ByteSimple Banner](./public/assets/banner.png) <!-- Optional: Add a banner image if available -->
+![ByteSimple Banner](client/public/assets/logo.png) <!-- Optional: Add a banner image if available -->
 
 ---
 
