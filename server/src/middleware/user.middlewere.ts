@@ -5,13 +5,15 @@ import { generateJWT } from "../lib/generateJWT";
 export const userMiddleware = (req:Request, res:Response, next:NextFunction) => {
     const accesstoken = req.cookies.accessToken;
     const refreshtoken = req.cookies.refreshToken;
+    console.log(accesstoken, refreshtoken);
+    
     if(!accesstoken || !refreshtoken){
         res.status(401).json({ message: "Unauthorized"});
         return 
     }
     try {
         const user = Jwt.verify(accesstoken, process.env.ACCESS_TOKEN_SECRET||"ACCESS_TOKEN_SECRET") as any;
-        if(user.type != "user"){
+        if(user.type !== "user"){
             res.status(401).json({ message: "Unauthorized"});
             return 
         }
@@ -21,7 +23,7 @@ export const userMiddleware = (req:Request, res:Response, next:NextFunction) => 
     } catch (error) {
         try {
             const user = Jwt.verify(refreshtoken, process.env.REFRESH_TOKEN_SECRET||"REFRESH_TOKEN_SECRET") as any;
-            if(user.type != "user"){
+            if(user.type !== "user"){
                 res.status(401).json({ message: "Unauthorized"});
                 return 
             }

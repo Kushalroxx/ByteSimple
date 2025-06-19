@@ -6,30 +6,42 @@ import { serverUrl } from '@/lib/exportEnv'
 import { useRouter } from 'nextjs-toploader/app'
 import { Loader } from '@/components/ui'
 import DashboardCards from '../majorUi/DashboardCards'
+import { useAtom } from 'jotai'
+import { userAtom } from '@/lib/atoms'
 
 function Dashboard() {
   const router = useRouter()
   const [dashboardData, setDashboardData] = React.useState<dashboardInterface|null>(null)
+  const [user, setUser] = useAtom(userAtom)
+
   useEffect(() => {
     const dashboard = async () => {
       try {
-        const res = await axios.get(`${serverUrl}/admin/dashboard`,{
-          withCredentials:true
-        })
-        console.log(res.data);
+        if (user?.type==="admin"||user?.type==="subAdmin") {
+          
+          const res = await axios.get(`${serverUrl}/admin/dashboard`,{
+            withCredentials:true
+          })
+          setDashboardData(res.data)
+          return
+        }
+        if (user?.type==="user") {
+          
+        }
         
-        setDashboardData(res.data)
       } catch (error) {
         if (error instanceof AxiosError) {
           if(error.status === 401){
-            router.push("/signin")
+            router.push("/")
           }}
       }}
       dashboard()
 },[])
 if (dashboardData === null) {
   return (
-    <Loader/>
+    <div className='h-[85vh] flex justify-center items-center'>
+      <Loader/>
+    </div>
   )
 }
   return (

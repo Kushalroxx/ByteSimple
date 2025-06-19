@@ -20,7 +20,10 @@ import {
 import { FcGoogle} from "react-icons/fc"
 import Link from 'next/link'
 
-function SignIn({children}:{children:React.ReactElement|string}) {
+function SignIn({children, open, setOpen}:{children:React.ReactElement|string,
+  open:boolean,
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>
+}) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [email, setEmail] = useState("")
@@ -63,7 +66,7 @@ function SignIn({children}:{children:React.ReactElement|string}) {
 
   }
   return (
-   <AlertDialog>
+   <AlertDialog open={open} onOpenChange={e=>setOpen(e=>!e)}>
   <AlertDialogTrigger>{children}</AlertDialogTrigger>
   <AlertDialogContent>
   {

@@ -16,41 +16,66 @@ import {
   PopoverTrigger,
 } from "@/components/ui"
 import { FaUserCircle } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
+import { useRouter } from "nextjs-toploader/app";
+import { FaUser } from "react-icons/fa";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
   const pathname = usePathname();
   const [user, setUser] = useAtom(userAtom)
+  const [refresh, setRefresh] = useState(false)
   useEffect(() => {
     const checkUserStatus = async () => {
       try {
         const res = await axios.get(`${serverUrl}/check`, { withCredentials: true })
         setUser(res.data.user)
       } catch (error) {
+        setUser(null)
+        setTimeout(() => {
+          setSignInOpen(true)
+        },2000);
       }
     }
     checkUserStatus()
 
-  }, [])
+  }, [refresh])
 
-  const navItems = [
+  let navItems = [
     { href: "/services", label: "SERVICES" },
     { href: "/demos", label: "DEMOS" },
     { href: "/blogs", label: "BLOGS" },
     { href: "/about", label: "ABOUT" },
     { href: "/contactus", label: "CONTACTS" },
   ];
-  const adminNavItems = [
-    { href: "/admin", label: "ADMIN" },
-  ];
 
+  if (user?.type==="user") {
+    navItems.push({ href: "/dashboard", label: "DASHBOARD" },{href:"/projects", label:"PROJECTS"},{href:"/invoices", label:"INVOICES"})
+   
+  }
+  if (user?.type==="subAdmin"||user?.type==="admin") {
+    navItems.push({ href: "/admin/dashboard", label: "DASHBOARD" })
+  }
   const variants = {
     open: { opacity: 1, x: 0 },
     closed: { opacity: 0, x: "100%" },
   };
 
+  const handleLogOut = async()=>{
+     try {
+      await axios.get(`${serverUrl}/auth/signout`,{
+                 withCredentials:true
+             })
+      setRefresh(e=>!e)
+     } catch (error) {
+      
+     }
+        
+  }
+
   return (
-    <nav className="flex flex-col fixed font-archivo text-[#b5b4b2] z-50 w-full border-b border-zinc-700">
+    <motion.nav initial={{opacity:0,y:-5}} animate={{opacity:1,y:0}} transition={{delay:.2,type:"keyframes"}} className="flex flex-col fixed font-archivo text-[#b5b4b2] z-50 w-full border-b border-zinc-700">
       <div className="w-full flex justify-between items-center backdrop-blur backdrop-opacity-90 md:py-4 px-[3%] border-b border-zinc-900">
         {/* LOGO */}
         <div className="flex text-3xl items-center">
@@ -75,15 +100,21 @@ export default function Navbar() {
           ))}
           <div className="flex gap-8">
             {user === null ?
-              <SignIn>
-                <img src={"/assets/user.svg"} alt="" width={25} />
+              <SignIn open={signInOpen} setOpen={setSignInOpen} >
+                <FaUser className="text-xl"/>
               </SignIn> :
-              <Popover>
-                <PopoverTrigger><img src={"/assets/user.svg"} alt="" width={25} /></PopoverTrigger>
-                <PopoverContent className="flex flex-col justify-between items-center p-0">
-                  <div className="flex justyfy-center items-center gap-3 px-4 py-2 hover:bg-zinc-800">
+              <Popover >
+                <PopoverTrigger>
+                  <FaUser className="text-xl"/>
+                  </PopoverTrigger>
+                <PopoverContent className="flex flex-col justify-between p-2">
+                  <div className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-zinc-800">
                   <FaUserCircle />
                   <p>{user.email}</p>
+                  </div>
+                   <div onClick={e=>{handleLogOut()}} className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-zinc-800 cursor-pointer">
+                  <IoIosLogOut />
+                  <p>Log out</p>
                   </div>
                 </PopoverContent>
               </Popover>
@@ -126,8 +157,34 @@ export default function Navbar() {
               </li>
             </Link>
           ))}
+         <div className="flex gap-8 ">
+            {user === null ?
+              <SignIn open={signInOpen} setOpen={setSignInOpen} >
+                <div className={`hover:text-cyan-600 transition duration-300 flex gap-2 justify-center items-center`}>
+                <FaUser/>
+                signin
+                </div>
+              </SignIn> :
+              <Popover >
+                <PopoverTrigger className={`hover:text-cyan-600 transition duration-300 flex gap-2 justify-center items-center`}>
+                  <FaUser/>
+                  User
+                  </PopoverTrigger>
+                <PopoverContent className="flex flex-col justify-between p-2">
+                  <div className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-zinc-800">
+                  <FaUserCircle />
+                  <p>{user.email}</p>
+                  </div>
+                   <div onClick={e=>{handleLogOut()}} className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-zinc-800 cursor-pointer">
+                  <IoIosLogOut />
+                  <p>Log out</p>
+                  </div>
+                </PopoverContent>
+              </Popover>
+            }
+            </div>
         </ul>
       </motion.div>
-    </nav>
+    </motion.nav>
   );
 }

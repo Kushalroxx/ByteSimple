@@ -54,3 +54,49 @@ export interface userFrontendSourceInterface {
   email: string,
   type:"user"|"subAdmin"|"admin",
 }
+
+export interface projectInterface {
+  _id: string;
+  clientId: string;
+  projectTitle: string;
+  projectDescription: string;
+  designPreference?: string;
+  projectType: string;
+  projectLink?: string;
+  budget: {
+    min: number;
+    max: number;
+  };
+  initialQuote?: number;
+  clientQuote?: number;
+  finalQuote?: number;
+  status:
+    | "pending"
+    | "reviewed"
+    | "quoted"
+    | "client-countered"
+    | "final-countered"
+    | "approved"
+    | "in-progress"
+    | "completed"
+    | "cancelled";
+  urgency?: "urgent" | "normal" | "not-urgent";
+  techPreference?: string[];
+  paymentType?: "fixed" | "hourly";
+  payment: {
+    upfront: boolean;
+    final: boolean;
+  };
+  delivery?: {
+    codeLink?: string;
+    notes?: string;
+  };
+  projectedTime?: number;
+  message: {
+    from: "client" | "admin";
+    message: string;
+    timestamp: Date;
+  }[];
+  createdAt?: Date;
+  updatedAt?: Date;
+}

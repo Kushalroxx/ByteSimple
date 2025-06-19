@@ -6,7 +6,7 @@ export const getProjectsUserController = async(req:Request, res:Response) => {
     const user = req.user as any
     if (!id) {
         try {
-            const projects = await ProjectRequest.find({clientId:user.id}).select("projectTitle status projectType paymentType _id urgency");
+            const projects = await ProjectRequest.find({clientId:user.id});
             if (!projects || projects.length === 0) {
                 res.status(404).json({ message: "Projects not found"});
                 return;
