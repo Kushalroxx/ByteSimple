@@ -96,6 +96,71 @@ class Mailer {
          const data = transporter.sendMail(mailOptions).then(() => true).catch(() => false);
         return data
     }
+    sendPasswordMail(email: string, token: string):Promise<boolean> {
+        const mailOptions:MailOptions = {
+            from: '"ByteSimple" <process.env.APP_EMAIL>',
+            to: email,
+            subject:"Your Password reset link",
+            html: `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Password Reset</title>
+  </head>
+  <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9f9f9; padding: 40px 0;">
+      <tr>
+        <td align="center">
+          <table width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 40px;">
+            <tr>
+              <td align="center" style="padding-bottom: 30px;">
+                <h1 style="margin: 0; color: #333333; font-size: 24px;">Reset Your Password</h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="color: #555555; font-size: 16px; line-height: 1.6;">
+                <p>Hi there,</p>
+                <p>You recently requested to reset your password. Click the button below to proceed.</p>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding: 30px 0;">
+                <a href="${process.env.CLIENT_URL}/reset-password/?token=${token}" style="
+                  display: inline-block;
+                  padding: 12px 24px;
+                  background-color: #4fc3f7;
+                  color: #ffffff;
+                  text-decoration: none;
+                  font-weight: bold;
+                  border-radius: 6px;
+                  font-size: 16px;
+                ">
+                  Reset Password
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td style="color: #888888; font-size: 14px; line-height: 1.6;">
+                <p>If you didn’t request this, you can safely ignore this email.</p>
+                <p>This link will expire in 15 minutes.</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top: 30px; color: #cccccc; font-size: 12px; text-align: center;">
+                © ${new Date().getFullYear()} ByteSimple. All rights reserved.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+`,
+        };
+         const data = transporter.sendMail(mailOptions).then(() => true).catch(() => false);
+        return data
+    }
 }
 const mailer = new Mailer()
 export default mailer

@@ -19,6 +19,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { useRouter } from "nextjs-toploader/app";
 import { FaUser } from "react-icons/fa";
+import Auth from "../sections/auth";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -102,9 +103,9 @@ export default function Navbar() {
           ))}
           <div className="flex gap-8">
             {user === null ?
-              <SignIn open={signInOpen} setOpen={setSignInOpen} >
+              <Auth open={signInOpen} setOpen={setSignInOpen} >
                 <FaUser className="text-xl"/>
-              </SignIn> :
+              </Auth> :
               <Popover >
                 <PopoverTrigger>
                   <FaUser className="text-xl"/>
@@ -156,12 +157,12 @@ export default function Navbar() {
           ))}
          <div className="flex gap-8 ">
             {user === null ?
-              <SignIn open={signInOpen} setOpen={setSignInOpen} >
+              <Auth open={signInOpen} setOpen={setSignInOpen} >
                 <div className={`hover:text-cyan-600 transition duration-300 flex gap-2 justify-center items-center`}>
                 <FaUser/>
                 signin
                 </div>
-              </SignIn> :
+              </Auth> :
               <Popover >
                 <PopoverTrigger className={`hover:text-cyan-600 transition duration-300 flex gap-2 justify-center items-center`}>
                   <FaUser/>

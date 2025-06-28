@@ -32,7 +32,7 @@ export const signupVerifyController = async(req: Request, res: Response) => {
         const refreshToken = generateJWT("refresh", {id: user.id, email: user.email, type: user.type});
         res.cookie("refreshToken",refreshToken,{httpOnly: true,sameSite: "lax",secure:process.env.NODE_ENV === "production"});
         res.cookie("accessToken",accessToken,{httpOnly: true,sameSite: "lax",secure:process.env.NODE_ENV === "production"});
-        res.status(200).json({ message: "Signup successful"});
+        res.status(200).json({ message: "Signup successful", user:{name:user.name, email:user.email, type:user.type}});
         return
     } catch (error) {
         console.log(error);

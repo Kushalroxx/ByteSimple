@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from 'nextjs-toploader';
 import Navbar from "@/components/majorUi/navbar";
+import { Toaster } from "@/components/ui";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -63,6 +64,7 @@ export default function RootLayout({
          <NextTopLoader showSpinner={false} />
          <Navbar/>
         {children}
+         <Toaster position="top-center" />
       </body>
     </html>
   );

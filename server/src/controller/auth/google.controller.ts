@@ -18,49 +18,79 @@ export const googleController = async(req:Request, res:Response) => {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Email Already Linked</title>
-</head>
-<body style="
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  background: linear-gradient(135deg, #1c1c1c, #2e2e2e);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: white;
-">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-  <div style="
-    text-align: center;
-    max-width: 600px;
-    padding: 30px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  ">
-    <h1 style="font-size: 1.8rem; margin-bottom: 20px;">
-      The email <span style="color: #4fc3f7;">${profile._json.email}</span> is already linked to a password account.
-    </h1>
-    <p style="margin-bottom: 30px; font-size: 1rem; color: #ccc;">
-      Please log in using your password credentials.
-    </p>
-    <a href="${process.env.CLIENT_URL1}/signin" style="
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f0f0f, #1e1e1e);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 540px;
+      padding: 40px 30px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      margin-bottom: 18px;
+      line-height: 1.4;
+    }
+
+    .email {
+      color: #4fc3f7;
+      word-break: break-all;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 28px;
+    }
+
+    .btn {
       background-color: #4fc3f7;
       color: #000;
-      padding: 12px 28px;
-      border-radius: 6px;
+      padding: 12px 26px;
+      border-radius: 8px;
       text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background-color 0.25s ease;
       display: inline-block;
-    " onmouseover="this.style.backgroundColor='#29b6f6'" onmouseout="this.style.backgroundColor='#4fc3f7'">
-      Login Now
-    </a>
-  </div>
+    }
 
+    .btn:hover {
+      background-color: #29b6f6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>
+      The email <span class="email">${profile._json.email}</span><br />
+      is already linked to a password account.
+    </h1>
+    <p>Please log in using your password credentials.</p>
+    <a href="${process.env.CLIENT_URL1}" class="btn">Login Now</a>
+  </div>
 </body>
 </html>
+
 `)
         }
                

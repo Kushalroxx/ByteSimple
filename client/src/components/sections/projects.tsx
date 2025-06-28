@@ -42,7 +42,9 @@ export default function Projects() {
                     if(error.status === 401){
                         // router.push("/")
                     }
-                    
+                    if(error.status === 404){
+                        setProjects([])
+                    }
                 }
             }
         }

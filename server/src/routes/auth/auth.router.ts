@@ -6,11 +6,13 @@ import { generateJWT } from "../../lib/generateJWT";
 import { signupController } from "../../controller/auth/signup.controller";
 import { signupVerifyController } from "../../controller/auth/signupVarify.controller";
 import { googleController } from "../../controller/auth/google.controller";
+import { forgotPasswordController } from "../../controller/auth/forgotPassword.controller";
 
 const authRouter = Router();
 
 authRouter.route("/signup").post(signupController);
 authRouter.route("/signup/verify").post(signupVerifyController);
+authRouter.route("/forgot-password").post(forgotPasswordController);
 authRouter.route("/signin").post(signinController);
 authRouter.route("/signout").get(signoutController);
 authRouter.route("/google").get(passport.authenticate("google", { scope: ["email", "profile"] }));

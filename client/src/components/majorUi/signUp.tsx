@@ -1,87 +1,56 @@
 "use client"
 import React, { useState } from 'react'
-import { Button, CardContent, CardHeader, CardTitle, Input, } from '../ui'
-import { toast } from 'sonner'
+import { Button, CardContent, CardHeader, CardTitle, Input, InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '../ui'
 import {z} from "zod"
 import { serverUrl } from '@/lib/exportEnv'
 import axios, { AxiosError } from 'axios'
 import { useRouter } from 'nextjs-toploader/app'
 import { DotLoader } from 'react-spinners'
-import {
-  AlertDialogDescription,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
 import { FcGoogle} from "react-icons/fc"
 import Link from 'next/link'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/lib/atoms'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import OtpComp from './otpComp'
 
-function SignIn({setOpen, setIsSignIn}:{
-  setOpen:React.Dispatch<React.SetStateAction<boolean>>,
-  setIsSignIn:React.Dispatch<React.SetStateAction<boolean>>
+function SignUp({
+    setOpen,
+    setIsSignIn
+}:{
+  setIsSignIn:React.Dispatch<React.SetStateAction<boolean>>,
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
-  const [user, setUser] = useAtom(userAtom)
-  const router = useRouter()
+  const [name, setName] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [otpOpen, setOtpOpen] = useState(false)
   const schema = z.object({
+    name: z.string().min(3,"Enter a valid name"),
     email: z.string().email(),
-    password: z.string().min(8,"enter a valid password")
+    password: z.string().min(8,"Enter a valid password"),
+    confirmPassword: z.string().min(8,"Enter a valid password").refine((value) => value === password, "Passwords don't match")
   })
-  const handleForgotPassword = async() => {
-    if (!email) {
-      setError("Please enter your email")
-      return
-    }
-    try {
-      setLoading(true)
-      const res = await axios.post(`${serverUrl}/auth/forgot-password`,{
-        email
-      })
-      setLoading(false)
-      toast("Email on its way!", {
-  description: "You'll receive a password reset link shortly. Just follow it to create a new password.",
-  duration: 5000,
-});
-    } catch (error:any) {
-      setLoading(false)
-      if(error instanceof AxiosError){
-        if(error.response?.data?.message){
-          setError(error.response.data.message)
-          return 
-        }else{
-          setError(error.response?.data)
-        }
-      
-    }
-  }
-}
-  const onSubmit = async() => {   
+
+    const onSubmit = async() => {
     setError("")
-    const data = schema.safeParse({email, password})
+    const data = schema.safeParse({email, password, name, confirmPassword})
     if (data.error?.errors[0]?.message) {
       setError(data.error.errors[0].message)
       return;
     }
     try {
       setLoading(true)
-      const res = await axios.post(`${serverUrl}/auth/signin`,{
+      const res = await axios.post(`${serverUrl}/auth/signup`,{
+        name,
         email,
         password
       },{withCredentials:true})
         setLoading(false)
-        setOpen(false)
-        console.log(res.data);
-        setUser(res.data.user)
-        if (res.data.user.type==="admin"||res.data.user.type==="subAdmin") {
-          router.push("/admin/dashboard")
-        }else{
-          router.push("/dashboard")
-        }
+        setOtpOpen(true)
     } catch (error:any) {
       setLoading(false)
       if(error instanceof AxiosError){
@@ -98,17 +67,29 @@ function SignIn({setOpen, setIsSignIn}:{
   }
   return (
  <>
+ <OtpComp email={email} password={password} name={name} setOpen={setOpen} otpOpen={otpOpen} setOtpOpen={setOtpOpen}/>
   <CardHeader>
-    <AlertDialogTitle className="text-lg md:text-xl font-bold">
-      Hey there! Welcome back 👋
-    </AlertDialogTitle>
-    <AlertDialogDescription className="text-muted-foreground text-sm mt-1">
-      Please enter your Email and Password to sign in.
-    </AlertDialogDescription>
+    <CardTitle className="text-lg md:text-xl font-bold">
+      Welcome to ByteSimple 👋
+    </CardTitle>
+    <p className="text-muted-foreground text-sm mt-1">
+       Let’s get you started! Fill in your details to create an account.
+    </p>
   </CardHeader>
 
-  <form onSubmit={(e) => e.preventDefault()}>
+  <form  onSubmit={(e) => e.preventDefault()}>
     <CardContent className="flex flex-col gap-4">
+      <div>
+        <CardTitle className="text-base mb-1 mt-4">Name</CardTitle>
+        <Input
+          type="text"
+          value={name}
+          onChange={(e) => {
+            setError("");
+            setName(e.target.value);
+          }}
+        />
+      </div>
       <div>
         <CardTitle className="text-base mb-1">Email</CardTitle>
         <Input
@@ -120,16 +101,8 @@ function SignIn({setOpen, setIsSignIn}:{
           }}
         />
       </div>
-
       <div>
-        <CardTitle className="flex justify-between items-center mb-1">
-          <span>Password</span>
-          <span
-          onClick={handleForgotPassword}
-          className="text-sm text-blue-700 font-light hover:text-blue-600 cursor-pointer px-2"
-          >
-            forgot password
-          </span>
+        <CardTitle className="text-base mb-1">Password
         </CardTitle>
         <div className="relative">
           <Input
@@ -150,12 +123,22 @@ function SignIn({setOpen, setIsSignIn}:{
             {showPassword ? <FaEye /> : <FaEyeSlash />}
           </Button>
         </div>
+        <CardTitle className='text-base mb-1 mt-3'>Confirm Password</CardTitle>
+          <Input
+            className="pr-10"
+            value={confirmPassword}
+            onChange={(e) => {
+              setError("");
+              setConfirmPassword(e.target.value);
+            }}
+            type={showPassword ? "text" : "password"}
+          />
       </div>
 
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
       <Button disabled={loading} onClick={onSubmit} type="submit">
-        {loading ? <DotLoader size={20} className="text-primary" /> : "Sign In"}
+        {loading ? <DotLoader size={20} className="text-primary" /> : "Sign Up"}
       </Button>
 
       <Link href={`${serverUrl}/auth/google`} className="w-full" passHref>
@@ -171,13 +154,13 @@ function SignIn({setOpen, setIsSignIn}:{
       </Link>
     </CardContent>
   </form>
-<div className='flex items-center justify-center'>
-  <p className="text-sm text-muted-foreground">Don't have an account? <span className="text-blue-600 cursor-pointer" onClick={() => setIsSignIn(false)}>Sign Up</span></p>
+
+ <div className='flex items-center justify-center'>
+  <p className="text-sm text-muted-foreground">Already have an account? <span className="text-blue-600 cursor-pointer" onClick={() => setIsSignIn(true)}>Sign In</span></p>
 </div>
- 
 </>
 
   )
 }
 
-export default SignIn
+export default SignUp
