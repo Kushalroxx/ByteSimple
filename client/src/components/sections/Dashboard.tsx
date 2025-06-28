@@ -36,7 +36,7 @@ function Dashboard() {
           }}
       }}
       dashboard()
-},[])
+},[user])
 if (dashboardData === null) {
   return (
     <div className='h-[85vh] flex justify-center items-center'>

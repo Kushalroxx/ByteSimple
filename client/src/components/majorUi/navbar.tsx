@@ -26,6 +26,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [user, setUser] = useAtom(userAtom)
   const [refresh, setRefresh] = useState(false)
+  const router = useRouter()
   useEffect(() => {
     const checkUserStatus = async () => {
       try {
@@ -35,7 +36,7 @@ export default function Navbar() {
         setUser(null)
         setTimeout(() => {
           setSignInOpen(true)
-        },2000);
+        },1000);
       }
     }
     checkUserStatus()
@@ -67,6 +68,7 @@ export default function Navbar() {
       await axios.get(`${serverUrl}/auth/signout`,{
                  withCredentials:true
              })
+             router.push("/")
       setRefresh(e=>!e)
      } catch (error) {
       
@@ -107,8 +109,8 @@ export default function Navbar() {
                 <PopoverTrigger>
                   <FaUser className="text-xl"/>
                   </PopoverTrigger>
-                <PopoverContent className="flex flex-col justify-between p-2">
-                  <div className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-zinc-800">
+                <PopoverContent className="flex flex-col justify-between w-full">
+                  <div className="flex items-center gap-3 px-2 py-2 rounded-md hover:bg-zinc-800">
                   <FaUserCircle />
                   <p>{user.email}</p>
                   </div>
@@ -119,11 +121,6 @@ export default function Navbar() {
                 </PopoverContent>
               </Popover>
             }
-
-            {/*}  <Link href="#">
-              <img src={"/assets/envelope.svg"} alt="" width={25} />
-            </Link>
-            */}
           </div>
         </div>
 
@@ -170,8 +167,8 @@ export default function Navbar() {
                   <FaUser/>
                   User
                   </PopoverTrigger>
-                <PopoverContent className="flex flex-col justify-between p-2">
-                  <div className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-zinc-800">
+                <PopoverContent className="flex flex-col justify-between w-full ">
+                  <div className="flex items-center gap-3 py-2 rounded-md px-2 hover:bg-zinc-800">
                   <FaUserCircle />
                   <p>{user.email}</p>
                   </div>

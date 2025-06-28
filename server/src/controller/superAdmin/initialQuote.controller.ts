@@ -8,8 +8,12 @@ export const initialQuoteController = async(req:Request, res:Response) => {
         res.status(400).json({ message: "Please provide a valid id"});
         return;
     }
+    if (!initialQuote) {
+        res.status(400).json({ message: "Please provide a valid quote"});
+        return;
+    }
     try {
-        const project = await ProjectRequest.findById(id);
+        let project = await ProjectRequest.findById(id);
         if (!project) {
             res.status(404).json({ message: "Project not found"});
             return;
@@ -18,8 +22,8 @@ export const initialQuoteController = async(req:Request, res:Response) => {
             res.status(400).json({ message: "Initial quote already submitted"});
             return
         }
-        await ProjectRequest.findByIdAndUpdate(id, {status: "quoted", initialQuote: initialQuote}, {new: true});
-        res.status(200).json({ message: "Initial quote successful"});
+        project = await ProjectRequest.findByIdAndUpdate(id, {status: "quoted", initialQuote: initialQuote}, {new: true});
+        res.status(200).json({ message: "Initial quote successful", project});
     } catch (error) {
         res.status(500).json({ message: "Internal server error"});
         return

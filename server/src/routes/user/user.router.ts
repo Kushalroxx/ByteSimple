@@ -8,8 +8,8 @@ const userRouter = Router();
 
 userRouter.route("/create-project").post(createProjectController);
 userRouter.route("/projects/:id?").get(getProjectsUserController);
-userRouter.route("/client-quote/:id").post(clientQuoteController);
-userRouter.route("/approve-project/:id").post(approveProjectController);
+userRouter.route("/project/client-quote/:id").post(clientQuoteController);
+userRouter.route("/project/approve/:id").post(approveProjectController);
 userRouter.route("/delete-project").delete();
 
 export default userRouter

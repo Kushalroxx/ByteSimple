@@ -27,6 +27,7 @@ export default function SideNav() {
   let navOptions = [
         {name:"Dashboard",href:"/admin/dashboard"},
         {name:"Services",href:"/admin/services"},
+        {name:"Projects",href:"/admin/projects"},
         {name:"Contacts",href:"/admin/contacts"},
         {name:"ServiceDemo",href:"/admin/servicedemo"},
         {name:"AboutUs",href:"/admin/aboutus"},

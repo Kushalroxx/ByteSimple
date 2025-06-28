@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { Button } from '../ui'
+import { Button, Loader } from '../ui'
 import { FaPlus } from "react-icons/fa6";
 import axios, { AxiosError } from 'axios';
 import { serverUrl } from '@/lib/exportEnv';
@@ -9,36 +9,45 @@ import { projectInterface } from '@/lib/interfaces';
 import DisplayProjects from '../majorUi/displayProjects';
 import InViewAnimation from '../majorUi/inViewAnimation';
 import ProjectFilter from '../majorUi/projectFilter';
+import { useAtom } from 'jotai';
+import { userAtom } from '@/lib/atoms';
 
 export default function Projects() {
     const [projects, setProjects] = useState<null|projectInterface[]>(null)
     const [shownProjects, setShownProjects ] = useState<null|projectInterface[]>(null)
+    const [user, setUser] = useAtom(userAtom)
     const router = useRouter()
-    useEffect(() => {
-        console.log(projects&&projects[0].createdAt);
-        
-    },[projects])
     useEffect(() => {
         async function fetchProjects(){
             try {
-                const res = await axios.get(`${serverUrl}/user/projects`,{withCredentials:true}) 
-                console.log(res.data);
+                console.log(user);
                 
-                setProjects(res.data.projects)
-                setShownProjects(res.data.projects)
+                if (!user) {
+                    return
+                }
+                if (user?.type==="admin") {
+                    const res = await axios.get(`${serverUrl}/super-admin/projects`,{withCredentials:true})
+                    setProjects(res.data.projects)
+                    setShownProjects(res.data.projects)
+                }
+                if (user.type==="user") {   
+                    const res = await axios.get(`${serverUrl}/user/projects`,{withCredentials:true}) 
+                    setProjects(res.data.projects)
+                    setShownProjects(res.data.projects)
+                }
             } catch (error) {
                 console.log(error);
                 
                 if (error instanceof AxiosError) {
                     if(error.status === 401){
-                        router.push("/")
+                        // router.push("/")
                     }
                     
                 }
             }
         }
         fetchProjects()
-    },[])
+    },[user])
     const onSelect = (value:string) => {
         if (value === "all") {
                 setShownProjects(projects)
@@ -48,6 +57,13 @@ export default function Projects() {
     }
     const onInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         setShownProjects(projects&&projects.filter((project) => project.projectTitle.toLowerCase().includes(e.target.value.toLowerCase())))
+    }
+    if (projects===null) {
+        return(
+            <div className='h-[90vh] flex justify-center items-center'>
+                <Loader/>
+            </div>
+        )
     }
   return (
     <div className='min-h-[90vh]'>

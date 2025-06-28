@@ -10,11 +10,11 @@ import { cancelProjectController } from "../../controller/superAdmin/cancelProje
 
 const superAdminRouter = Router();
 
-superAdminRouter.route("/projects/:status").get(getProjectsController);
+superAdminRouter.route("/projects").get(getProjectsController);
 superAdminRouter.route("/project/:id").get(getOneProjectController);
-superAdminRouter.route("/quote/:id").post(initialQuoteController)
-superAdminRouter.route("/final-quote/:id").post(finalQuoteController)
-superAdminRouter.route("/cancel-project/:id").post(cancelProjectController);
+superAdminRouter.route("/project/quote/:id").post(initialQuoteController)
+superAdminRouter.route("/project/final-quote/:id").post(finalQuoteController)
+superAdminRouter.route("/project/cancel/:id").post(cancelProjectController);
 // superAdminRouter.route("/").get(getSubAdminController);
 // superAdminRouter.route("/").post(createSubAdminController);
 // superAdminRouter.route("/").delete(deleteSubAdminController);

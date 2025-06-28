@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from 'nextjs-toploader';
+import Navbar from "@/components/majorUi/navbar";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -60,6 +61,7 @@ export default function RootLayout({
         className={`${poppins.className} antialiased`}
       >
          <NextTopLoader showSpinner={false} />
+         <Navbar/>
         {children}
       </body>
     </html>

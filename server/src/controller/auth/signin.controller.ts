@@ -27,14 +27,13 @@ export const signinController = async(req:Request, res:Response) => {
         
         res.cookie("refreshToken",refreshToken,{httpOnly: true,sameSite: "lax",secure:process.env.NODE_ENV === "production"});
         res.cookie("accessToken",accessToken,{httpOnly: true,sameSite: "lax",secure:process.env.NODE_ENV === "production"});    
-        res.status(200).json({ message: "Login successful"});
+        res.status(200).json({ message: "Login successful",user:{email:email,type:"admin"}});
         return
     }
 // user or subAdmin login
     try {
         const user = await User.findOne({email: email});
-        console.log(user);
-        
+              
         if(!user){
             res.status(404).json({ message: "Invalid password or email"});
             return
@@ -49,7 +48,7 @@ export const signinController = async(req:Request, res:Response) => {
     
         res.cookie("refreshToken",refreshToken,{httpOnly: true,sameSite: "lax",secure:process.env.NODE_ENV === "production"});
         res.cookie("accessToken",accessToken,{httpOnly: true,sameSite: "lax",secure:process.env.NODE_ENV === "production"});    
-        res.status(200).json({ message: "Login successful"});
+        res.status(200).json({ message: "Login successful", user:{email:user.email,type:user.type}});
         return
     } catch (error) {
         res.status(500).json({ message: "Internal server error"});

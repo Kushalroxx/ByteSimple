@@ -1,15 +1,12 @@
 import React from 'react'
 import Orb from '../ui/Backgrounds/Orb/Orb'
 import Squares from '../ui/Backgrounds/squares/squares'
-import Navbar from './navbar'
 import HomeText from './homeText'
 import HomeLogo from './homeLogo'
 
 export default function HomeHero() {
   return (
     <div className="bg-black h-[92vh] md:h-screen w-screen overflow-y-hidden relative">
-      <Navbar />
-
       <div className="relative h-screen w-full">
         {/* Desktop background */}
         <div className="absolute inset-0 z-10 opacity-17 hidden md:flex justify-center items-center">

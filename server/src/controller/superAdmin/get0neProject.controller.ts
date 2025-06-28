@@ -8,13 +8,15 @@ export const getOneProjectController = async(req:Request, res:Response) => {
         return;
     }
     try {
-        const project = await ProjectRequest.findById(id);
+        let project = await ProjectRequest.findById(id);
         if (!project) {
             res.status(404).json({ message: "Project not found"});
             return;
         }
-        ProjectRequest.findByIdAndUpdate(id, {status: "reviewed"}, {new: true});
-        res.status(200).json({ message: "Get one project successful"});
+        if(project.status === 'pending'){
+        project = await ProjectRequest.findByIdAndUpdate(id, {status: "reviewed"}, {new: true});
+        }
+        res.status(200).json({ message: "Get one project successful", project});
     } catch (error) {
         res.status(500).json({ message: "Internal server error"});
         return

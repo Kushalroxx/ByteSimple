@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "../../db/schema";
 import GoogleStrategy from "passport-google-oauth20";
-import jwt from "jsonwebtoken"
 import { generateJWT } from "../../lib/generateJWT";
-import { log } from "util";
 
 export const googleController = async(req:Request, res:Response) => {
     const profile = req.user as GoogleStrategy.Profile

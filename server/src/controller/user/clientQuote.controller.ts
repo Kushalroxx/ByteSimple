@@ -5,6 +5,10 @@ export const clientQuoteController = async(req:Request, res:Response) => {
     const id = req.params.id as string
     const {clientQuote} = req.body
     const user = req.user as any
+    if (!clientQuote) {
+        res.status(400).json({ message: "Please provide a valid quote"});
+        return;
+    }
     if (!id) {
         res.status(400).json({ message: "Please provide a valid id"});
         return;

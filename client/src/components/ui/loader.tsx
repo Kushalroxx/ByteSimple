@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashLoader } from 'react-spinners'
+import { BarLoader } from 'react-spinners'
 
 function Loader({
   className,
@@ -8,7 +8,7 @@ function Loader({
 }) {
   return (
     <div className= {`${className} flex justify-center items-center`}>
-        <HashLoader color='#FFFFFF'/>
+        <BarLoader color='#FFFFFF'/>
       </div>
   )
 }

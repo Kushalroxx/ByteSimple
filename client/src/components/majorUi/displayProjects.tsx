@@ -2,66 +2,17 @@ import React, { useEffect } from 'react'
 import { Button, Card, CardContent, Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui'
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { AiOutlineCheckCircle, AiOutlineClockCircle, AiOutlineCloseCircle, AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { MdCurrencyRuble, MdOutlineAssignment, MdOutlineVerified } from 'react-icons/md';
-import { BsStars } from 'react-icons/bs';
-import { FaEdit } from 'react-icons/fa';
 import { projectInterface } from '@/lib/interfaces';
 import { useRouter } from 'nextjs-toploader/app';
 import InViewAnimation from './inViewAnimation';
+import { statusMap } from '@/lib/statusMap';
+import { userAtom } from '@/lib/atoms';
+import { useAtom } from 'jotai';
 
 dayjs.extend(relativeTime);
 
-const statusMap = {
-  pending: {
-    label: "Pending",
-    icon: <AiOutlineClockCircle className="mr-1" />,
-    color: " text-yellow-400",
-  },
-  reviewed: {
-    label: "Reviewed",
-    icon: <MdOutlineAssignment className="mr-1" />,
-    color: " text-purple-400",
-  },
-  quoted: {
-    label: "Quoted",
-    icon: <MdCurrencyRuble className="mr-1" />,
-    color: " text-indigo-400",
-  },
-  "client-countered": {
-    label: "Client Countered",
-    icon: <FaEdit className="mr-1" />,
-    color: " text-orange-400",
-  },
-  "final-countered": {
-    label: "Final Countered",
-    icon: <BsStars className="mr-1" />,
-    color: " text-amber-400",
-  },
-  approved: {
-    label: "Approved",
-    icon: <MdOutlineVerified className="mr-1" />,
-    color: " text-blue-400",
-  },
-  "in-progress": {
-    label: "In Progress",
-    icon: <AiOutlineLoading3Quarters className="mr-1 animate-spin-slow" />,
-    color: " text-cyan-400",
-  },
-  completed: {
-    label: "Completed",
-    icon: <AiOutlineCheckCircle className="mr-1" />,
-    color: " text-green-400",
-  },
-  cancelled: {
-    label: "Cancelled",
-    icon: <AiOutlineCloseCircle className="mr-1" />,
-    color: " text-red-400",
-  },
-};
-
-
 export default function DisplayProjects({projects}:{projects:projectInterface[]|null}) {
+  const [user, setUser] = useAtom(userAtom)
   useEffect(() => {
     console.log(projects);
   },[projects])
@@ -92,7 +43,7 @@ export default function DisplayProjects({projects}:{projects:projectInterface[]|
                 </TableHeader>
                 <TableBody>
             {projects?.map((project:projectInterface) => (
-                <TableRow onClick={() => router.push(`/projects/${project._id}`)} className='cursor-pointer' key={project._id}>
+                <TableRow onClick={() => user?.type==="user"? router.push(`/projects/${project._id}`):router.push(`/admin/projects/${project._id}`)} className='cursor-pointer' key={project._id}>
                     <TableCell className="font-medium">{project.projectTitle}</TableCell>
                     <TableCell className={`${statusMap[project.status].color} flex justify-end items-center gap-1`}>
                         {statusMap[project.status].icon}{statusMap[project.status].label}</TableCell>
