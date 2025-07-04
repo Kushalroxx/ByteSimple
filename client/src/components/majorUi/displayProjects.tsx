@@ -13,9 +13,6 @@ dayjs.extend(relativeTime);
 
 export default function DisplayProjects({projects}:{projects:projectInterface[]|null}) {
   const [user, setUser] = useAtom(userAtom)
-  useEffect(() => {
-    console.log(projects);
-  },[projects])
     const router = useRouter()
     if (!projects||projects.length === 0) {
       return(

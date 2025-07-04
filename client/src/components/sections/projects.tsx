@@ -20,8 +20,6 @@ export default function Projects() {
     useEffect(() => {
         async function fetchProjects(){
             try {
-                console.log(user);
-                
                 if (!user) {
                     return
                 }
@@ -72,7 +70,13 @@ export default function Projects() {
         <InViewAnimation delay={0.25}>
         <div className=' mt-3 md:pt-10 pb-10 flex  gap-8 justifybetween items-center'>
         <h1 className='text-4xl md:text-5xl font-extrabold'>Projects</h1>
-        <Button onClick={() => router.push("/projects/new")} variant={"outline"} className='md:text-lg font-semibold py-5 text-sm'>
+        <Button onClick={() => {
+            if (user?.type==="admin"||user?.type==="subAdmin") {
+                router.push("/admin/projects/new")
+                return
+            }
+            router.push("/projects/new")
+            }} variant={"outline"} className='md:text-lg font-semibold py-5 text-sm'>
            <FaPlus className='w-7 h-7'/>
             Create project
         </Button>

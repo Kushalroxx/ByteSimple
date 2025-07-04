@@ -125,7 +125,7 @@ class Mailer {
             </tr>
             <tr>
               <td align="center" style="padding: 30px 0;">
-                <a href="${process.env.CLIENT_URL}/reset-password/?token=${token}" style="
+                <a href="${process.env.CLIENT_URL1}/reset-password/?token=${token}" style="
                   display: inline-block;
                   padding: 12px 24px;
                   background-color: #4fc3f7;

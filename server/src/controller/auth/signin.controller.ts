@@ -38,7 +38,7 @@ export const signinController = async(req:Request, res:Response) => {
             res.status(404).json({ message: "Invalid password or email"});
             return
         }
-        const isPasswordCorrect = bcrypt.compare(password, user.password||"");    
+        const isPasswordCorrect = await bcrypt.compare(password, user.password||"");    
         if(!isPasswordCorrect){
             res.status(401).json({ message: "Invalid password or email"});
             return

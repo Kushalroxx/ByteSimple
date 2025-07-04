@@ -56,7 +56,7 @@ export default function Footer() {
 
 
   <div className="mt-8 border-t border-foreground/10 pt-4 text-center text-xs text-foreground/50">
-    © 2025 ByteSimple. All rights reserved.
+    © {new Date().getFullYear()} ByteSimple. All rights reserved.
   </div>
 </div>
 

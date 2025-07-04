@@ -11,6 +11,7 @@ import { serverUrl } from "@/lib/exportEnv";
 import { useAtom } from "jotai";
 import { userAtom } from "@/lib/atoms";
 import {
+  Button,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -19,6 +20,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { useRouter } from "nextjs-toploader/app";
 import { FaUser } from "react-icons/fa";
+import { FiLogIn } from "react-icons/fi";
 import Auth from "../sections/auth";
 
 export default function Navbar() {
@@ -43,7 +45,11 @@ export default function Navbar() {
     checkUserStatus()
 
   }, [refresh])
-
+  useEffect(() => {
+    if(pathname.startsWith("/forgot-password")){
+      setSignInOpen(false)
+    }
+  },[signInOpen])
   let navItems = [
     { href: "/services", label: "SERVICES" },
     { href: "/demos", label: "DEMOS" },
@@ -104,7 +110,7 @@ export default function Navbar() {
           <div className="flex gap-8">
             {user === null ?
               <Auth open={signInOpen} setOpen={setSignInOpen} >
-                <FaUser className="text-xl"/>
+                <Button variant={"outline"} className="flex items-center font-semibold"><FiLogIn />Login</Button>
               </Auth> :
               <Popover >
                 <PopoverTrigger>
@@ -158,10 +164,7 @@ export default function Navbar() {
          <div className="flex gap-8 ">
             {user === null ?
               <Auth open={signInOpen} setOpen={setSignInOpen} >
-                <div className={`hover:text-cyan-600 transition duration-300 flex gap-2 justify-center items-center`}>
-                <FaUser/>
-                signin
-                </div>
+                <Button variant={"outline"} className="flex items-center font-semibold"><FiLogIn />Login</Button>
               </Auth> :
               <Popover >
                 <PopoverTrigger className={`hover:text-cyan-600 transition duration-300 flex gap-2 justify-center items-center`}>

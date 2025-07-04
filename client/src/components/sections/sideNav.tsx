@@ -6,11 +6,13 @@ import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/lib/atoms'
+import { useRouter } from 'nextjs-toploader/app'
 
 export default function SideNav() {
   const [open, setOpen] = useState(false)
   const [user, setUser] = useAtom(userAtom)
   const path = usePathname()
+  const router = useRouter()
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -24,6 +26,11 @@ export default function SideNav() {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+  useEffect(() => {
+    if(user?.type!=="admin"&& user?.type!=="subAdmin"){
+      router.push("/")
+    }
+  },[user])
   let navOptions = [
         {name:"Dashboard",href:"/admin/dashboard"},
         {name:"Services",href:"/admin/services"},

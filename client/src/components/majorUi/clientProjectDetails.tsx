@@ -39,9 +39,10 @@ export default function ClientProjectDetails({project}:{project:projectInterface
                     </div>
                 </div>
 
-                <div className="md:col-span-2 space-y-2">
-                    <h2 className="text-lg font-semibold text-foreground">Reference Link</h2>
-                    {project?.projectLink ? (
+                {
+                    project?.projectLink &&
+                    <div className="md:col-span-2 space-y-2">
+                    <h2 className="text-lg font-semibold text-foreground">Project Link</h2>
                         <a
                             href={project.projectLink}
                             target="_blank"
@@ -50,10 +51,8 @@ export default function ClientProjectDetails({project}:{project:projectInterface
                         >
                             {project.projectLink}
                         </a>
-                    ) : (
-                        <p className="text-muted-foreground">No link provided.</p>
-                    )}
                 </div>
+                }
             </div>
             </InViewAnimation>
   )

@@ -12,6 +12,7 @@ import { useAtom } from 'jotai'
 import { userAtom } from '@/lib/atoms'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import OtpComp from './otpComp'
+import { AlertDialogTitle } from '@radix-ui/react-alert-dialog'
 
 function SignUp({
     setOpen,
@@ -69,9 +70,9 @@ function SignUp({
  <>
  <OtpComp email={email} password={password} name={name} setOpen={setOpen} otpOpen={otpOpen} setOtpOpen={setOtpOpen}/>
   <CardHeader>
-    <CardTitle className="text-lg md:text-xl font-bold">
+    <AlertDialogTitle className="text-lg md:text-xl font-bold">
       Welcome to ByteSimple 👋
-    </CardTitle>
+    </AlertDialogTitle>
     <p className="text-muted-foreground text-sm mt-1">
        Let’s get you started! Fill in your details to create an account.
     </p>

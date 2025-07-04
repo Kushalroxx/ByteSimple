@@ -84,12 +84,14 @@ function SignIn({setOpen, setIsSignIn}:{
         }
     } catch (error:any) {
       setLoading(false)
+      console.log(error);
+      
       if(error instanceof AxiosError){
         if(error.response?.data?.message){
           setError(error.response.data.message)
           return 
         }else{
-          setError(error.response?.data)
+          setError(error.message)
         }
       }
     }finally{
