@@ -1,25 +1,11 @@
 "use client"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
-import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "../ui/textarea"
-import { Card, CardHeader } from "../ui"
+import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Textarea, Card, CardHeader } from "@/components/ui"
 import axios from "axios"
 import { serverUrl } from "@/lib/exportEnv"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -30,10 +16,15 @@ const formSchema = z.object({
     message: "Please enter a valid phone number."
   }),
   description: z.string().min(10, {
-    message: "Please enter a valid Description."
+    message: "Description must be at least 10 characters."
   }),
 })
-
+const fields = [
+    { name: "name", label: "Name", placeholder: "Enter your name", component: Input },
+    { name: "email", label: "Email", placeholder: "Enter your email", component: Input },
+    { name: "phone", label: "Phone Number", placeholder: "Enter your phone number", component: Input },
+    { name: "description", label: "Description", placeholder: "Enter your description", component: Textarea },
+  ] as const 
 export function ContactForm() {
     const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
@@ -54,64 +45,29 @@ export function ContactForm() {
         }
       }
   return (
-    <Card className="w-[92%]  md:w-[37%] h">
+    <Card className="w-xl bg-transparent border-none">
         <CardHeader className="space-y-5">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-shadow">Contact Us</h1>
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex flex-col justify-center">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-          <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your Email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-          <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>phone Number</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your Phone No" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-          <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea placeholder="Enter your Description" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button className="text-base font-bold" type="submit">Connect</Button>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 flex flex-col justify-center">
+        {
+          fields.map(({name,component:Component,label,placeholder}) => (
+            <FormField
+              key={name}
+              control={form.control}
+              name={name}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-base ml-1 font-semi-bold">{label}</FormLabel>
+                  <FormControl>
+                    <Component className={`focus:!ring-0 shadow-white/10 text-base rounded-xl ${Component === Textarea ? "h-28" : "h-10"} shadow-md`} placeholder={placeholder} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ))
+        }
+        <Button className="text-base mt-4 rounded-full font-medium" type="submit">Send Message</Button>
       </form>
     </Form>
     </CardHeader>

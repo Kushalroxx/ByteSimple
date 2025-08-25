@@ -2,11 +2,11 @@ export default function Description({
   children,
   className,
 }:{
-  children:string,
+  children:React.ReactNode,
   className?:string
 }) {
   return (
-    <p className={`mt-6 text-foreground/80 break-words whitespace-normal text-sm md:text-lg ${className}`}>
+    <p className={` break-words whitespace-normal text-sm md:text-lg ${className}`}>
       {children}
     </p>
   );

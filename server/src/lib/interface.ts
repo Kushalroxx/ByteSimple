@@ -17,7 +17,10 @@ export interface bloginterface {
     blogName: string,
     description: string[],
     links?: string[],
-    slug: string
+    slug: string,
+    category: string,
+    subCategory: string,
+    tags: string
 }
 
 export interface aboutinterface {

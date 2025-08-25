@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { bloginterface } from "../../lib/interface";
-import { Blog } from "../../db/schema";
+import { Blog, BlogCategory } from "../../db/schema";
 
 export const createBlogController = async(req:Request, res:Response) => {
-    const {blogName, description,links} = req.body as bloginterface
-    if (!blogName || !description) {
+    const {blogName, description,links,category,subCategory,tags} = req.body as bloginterface
+    if (!blogName || !description || !category || !subCategory || !tags) {
         res.status(400).json({ message: "All fields are required"});
         return;
     }
@@ -15,7 +15,16 @@ export const createBlogController = async(req:Request, res:Response) => {
             res.status(400).json({ message: "Blog already exists"});
             return;
         }
-        await Blog.create({blogName, description,links,slug});
+
+        let blogCategory = await BlogCategory.findOne({category:category.trim().toLowerCase()});
+        let blogSubCategory = await BlogCategory.findOne({category:subCategory.trim().toLowerCase()});
+        if (!blogCategory) {
+            blogCategory = await BlogCategory.create({category:category.trim().toLowerCase()});
+        }
+        if (!blogSubCategory) {
+            blogSubCategory = await BlogCategory.create({category:subCategory.trim().toLowerCase()});
+        }
+        await Blog.create({blogName, description,links,slug,category:blogCategory._id,subCategory:blogSubCategory._id,tags});
         res.status(200).json({ message: "Create blog successful"});
         return;
     } catch (error) {

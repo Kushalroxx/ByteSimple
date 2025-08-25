@@ -3,7 +3,7 @@ import { ProjectRequest } from "../../db/schema";
 
 export const getProjectsController = async(req:Request, res:Response) => {
     try {
-        const projects = await ProjectRequest.find();
+        const projects = await ProjectRequest.find().sort({updatedAt: -1});
         if (!projects || projects.length === 0) {
             res.status(404).json({ message: "Projects not found"});
             return;

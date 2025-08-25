@@ -14,7 +14,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
 
       <button
         onClick={() => reset()}
-        className="mt-6 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+        className="mt-6 bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition"
       >
         Try Again
       </button>

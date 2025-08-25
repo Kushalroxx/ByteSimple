@@ -12,7 +12,7 @@ export default function Auth({children, open, setOpen}:{children:React.ReactElem
   <AlertDialogTrigger asChild>
     {children}
   </AlertDialogTrigger>
-  <AlertDialogContent className="w-full max-w-md p-6 rounded-xl shadow-xl bg-background border border-border">
+  <AlertDialogContent className=" rounded-xl px-1 shadow-xl bg-background border border-border">
         {
         isSignIn ?
         <SignIn setIsSignIn={setIsSignIn} setOpen={setOpen} />
@@ -20,7 +20,7 @@ export default function Auth({children, open, setOpen}:{children:React.ReactElem
         <SignUp setIsSignIn={setIsSignIn} setOpen={setOpen} />
         }
    <AlertDialogFooter>
-    <AlertDialogCancel className="absolute top-4 right-4 text-2xl px-2 hover:bg-muted rounded-md">
+    <AlertDialogCancel className="absolute top-4 right-4 text-2xl px-2 hover:bg-muted rounded-md border-none bg-background">
       ×
     </AlertDialogCancel>
   </AlertDialogFooter>

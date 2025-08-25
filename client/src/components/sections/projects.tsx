@@ -20,25 +20,20 @@ export default function Projects() {
     useEffect(() => {
         async function fetchProjects(){
             try {
-                if (!user) {
+                if (user === undefined) {
                     return
                 }
-                if (user?.type==="admin") {
-                    const res = await axios.get(`${serverUrl}/super-admin/projects`,{withCredentials:true})
-                    setProjects(res.data.projects)
-                    setShownProjects(res.data.projects)
+                if (user === null) {
+                    router.push("/")
                 }
-                if (user.type==="user") {   
-                    const res = await axios.get(`${serverUrl}/user/projects`,{withCredentials:true}) 
-                    setProjects(res.data.projects)
-                    setShownProjects(res.data.projects)
-                }
+                const res = await axios.get(`${serverUrl}/${user?.type === "admin"? "super-admin" : "user"}/projects`,{withCredentials:true})
+                setProjects(res.data.projects)
+                setShownProjects(res.data.projects)
+                return
             } catch (error) {
-                console.log(error);
-                
                 if (error instanceof AxiosError) {
                     if(error.status === 401){
-                        // router.push("/")
+                        router.push("/")
                     }
                     if(error.status === 404){
                         setProjects([])

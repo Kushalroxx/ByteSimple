@@ -18,7 +18,6 @@ function Dashboard() {
     const dashboard = async () => {
       try {
         if (user?.type==="admin"||user?.type==="subAdmin") {
-          
           const res = await axios.get(`${serverUrl}/admin/dashboard`,{
             withCredentials:true
           })

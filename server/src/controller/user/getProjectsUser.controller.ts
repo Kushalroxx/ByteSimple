@@ -6,7 +6,7 @@ export const getProjectsUserController = async(req:Request, res:Response) => {
     const user = req.user as any
     if (!id) {
         try {
-            const projects = await ProjectRequest.find({clientId:user.id});
+            const projects = await ProjectRequest.find({clientId:user.id}).sort({updatedAt: -1});
             if (!projects || projects.length === 0) {
                 res.status(404).json({ message: "Projects not found"});
                 return;

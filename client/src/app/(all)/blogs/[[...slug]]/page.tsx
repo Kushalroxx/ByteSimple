@@ -5,6 +5,7 @@ import { Metadata } from 'next'
 import React from 'react'
 
 export async function generateMetadata({ params }: { params: { slug?: string } }): Promise<Metadata> {
+  params = await params
   if (!params?.slug) {
     return {
       title: "ByteSimple - All Blogs",
@@ -54,6 +55,7 @@ export default async function page({params, searchParams}:{
     params:{slug:string[]},
     searchParams: {page?:string}
 }) {
+  searchParams = await searchParams
     const page = parseInt(searchParams?.page||"1")
     params = await params
   return (

@@ -1,46 +1,23 @@
 import React from 'react'
-import Orb from '../ui/Backgrounds/Orb/Orb'
-import Squares from '../ui/Backgrounds/squares/squares'
 import HomeText from './homeText'
-import HomeLogo from './homeLogo'
+import InViewAnimation from './inViewAnimation'
+import { WavyBackground } from '../ui/wavy-background'
 
 export default function HomeHero() {
+
   return (
-    <div className="bg-black h-[92vh] md:h-screen w-screen overflow-y-hidden relative">
-      <div className="relative h-screen w-full">
-        {/* Desktop background */}
-        <div className="absolute inset-0 z-10 opacity-17 hidden md:flex justify-center items-center">
-          <Squares
-            speed={0.5}
-            squareSize={60}
-            direction="diagonal"
-            borderColor="#fff"
-            hoverFillColor="#888"
-          />
+    <>
+    <div className='relative overflow-hidden h-[88vh] mt-8'>
+          <WavyBackground blur={15} speed='fast' className='overflow-hidden absolute z-0' >
+          <section className=" relative flex flex-col justify-center items-center z-20 ">
+            <HomeText />
+          </section>
+      </WavyBackground>
         </div>
+      <InViewAnimation className='flex z-20 justify-center pt-10 '>
+        <img className='w-[90%] md:w-5xl rounded-3xl' src="/assets/homeLogo.webp" />
+      </InViewAnimation>
+    </>
 
-        {/* Mobile background */}
-        <div className="absolute inset-0 z-10 opacity-60 flex md:hidden justify-center items-center">
-          <Orb
-            hoverIntensity={0.05}
-            rotateOnHover={true}
-            hue={758}
-            forceHoverState={true}
-          />
-        </div>
-
-        {/* Main content */}
-        <div className="relative z-10">
-         <section className="h-screen w-screen flex flex-col justify-center">
-      <div id="hero" className="h-dvh flex justify-between items-center gap-10">
-        <HomeText/>
-        <div id="logo" className=" h-full w-full overflow-hidden hidden relative md:flex ">
-          <HomeLogo />
-        </div>
-      </div>
-    </section>
-        </div>
-      </div>
-    </div>
   )
 }

@@ -16,92 +16,85 @@ import {
 } from "react-icons/si"
 import { FaAws } from "react-icons/fa";
 import InViewAnimation from "./inViewAnimation"
+import { Marquee } from "../magicui/marquee"
 
 const techIcons = [
-  { name: "HTML5", icon: <SiHtml5 size={40} /> },
-  { name: "CSS3", icon: <SiCss3 size={40} /> },
-  { name: "JavaScript", icon: <SiJavascript size={40} /> },
-  { name: "TypeScript", icon: <SiTypescript size={40} /> },
-  { name: "React", icon: <SiReact size={40} /> },
-  { name: "Next.js", icon: <SiNextdotjs size={40} /> },
-  { name: "Redux", icon: <SiRedux size={40} /> },
-  { name: "Tailwind CSS", icon: <SiTailwindcss size={40} /> },
-  { name: "Vite", icon: <SiVite size={40} /> },
-  { name: "Webpack", icon: <SiWebpack size={40} /> },
+  { name: "HTML5", icon: <SiHtml5   /> },
+  { name: "CSS3", icon: <SiCss3   /> },
+  { name: "JavaScript", icon: <SiJavascript   /> },
+  { name: "TypeScript", icon: <SiTypescript   /> },
+  { name: "React", icon: <SiReact   /> },
+  { name: "Next.js", icon: <SiNextdotjs   /> },
+  { name: "Redux", icon: <SiRedux   /> },
+  { name: "Tailwind CSS", icon: <SiTailwindcss   /> },
+  { name: "Vite", icon: <SiVite   /> },
+  { name: "Webpack", icon: <SiWebpack   /> },
 
-  { name: "Node.js", icon: <SiNodedotjs size={40} /> },
-  { name: "Express", icon: <SiExpress size={40} /> },
-  { name: "NestJS", icon: <SiNestjs size={40} /> },
+  { name: "Node.js", icon: <SiNodedotjs   /> },
+  { name: "Express", icon: <SiExpress   /> },
+  { name: "NestJS", icon: <SiNestjs   /> },
 
-  { name: "MongoDB", icon: <SiMongodb size={40} /> },
-  { name: "PostgreSQL", icon: <SiPostgresql size={40} /> },
-  { name: "MySQL", icon: <SiMysql size={40} /> },
-  { name: "Firebase", icon: <SiFirebase size={40} /> },
-  { name: "Prisma", icon: <SiPrisma size={40} /> },
+  { name: "MongoDB", icon: <SiMongodb   /> },
+  { name: "PostgreSQL", icon: <SiPostgresql   /> },
+  { name: "MySQL", icon: <SiMysql   /> },
+  { name: "Firebase", icon: <SiFirebase  /> },
+  { name: "Prisma", icon: <SiPrisma /> },
 
-  { name: "GraphQL", icon: <SiGraphql size={40} /> },
-  { name: "Apollo", icon: <SiApollographql size={40} /> },
+  { name: "GraphQL", icon: <SiGraphql  /> },
+  { name: "Apollo", icon: <SiApollographql /> },
 
-  { name: "Docker", icon: <SiDocker size={40} /> },
-  { name: "Kubernetes", icon: <SiKubernetes size={40} /> },
+  { name: "Docker", icon: <SiDocker  /> },
+  { name: "Kubernetes", icon: <SiKubernetes  /> },
 
-  { name: "Git", icon: <SiGit size={40} /> },
-  { name: "GitHub", icon: <SiGithub size={40} /> },
-  { name: "GitLab", icon: <SiGitlab size={40} /> },
+  { name: "Git", icon: <SiGit  /> },
+  { name: "GitHub", icon: <SiGithub /> },
+  { name: "GitLab", icon: <SiGitlab /> },
 
-  { name: "Vercel", icon: <SiVercel size={40} /> },
-  { name: "Netlify", icon: <SiNetlify size={40} /> },
-  { name: "AWS Amplify", icon: <SiAwsamplify size={40} /> },
-  { name: "Amazon Web Services", icon: <FaAws size={40} /> },
+  { name: "Vercel", icon: <SiVercel  /> },
+  { name: "Netlify", icon: <SiNetlify  /> },
+  { name: "AWS Amplify", icon: <SiAwsamplify  /> },
+  { name: "Amazon Web Services", icon: <FaAws  /> },
 
-  { name: "Sanity", icon: <SiSanity size={40} /> },
-  { name: "Strapi", icon: <SiStrapi size={40} /> },
-  { name: "Contentful", icon: <SiContentful size={40} /> },
+  { name: "Sanity", icon: <SiSanity  /> },
+  { name: "Strapi", icon: <SiStrapi  /> },
+  { name: "Contentful", icon: <SiContentful  /> },
 
-  { name: "Stripe", icon: <SiStripe size={40} /> },
-  { name: "Twilio", icon: <SiTwilio size={40} /> },
+  { name: "Stripe", icon: <SiStripe /> },
+  { name: "Twilio", icon: <SiTwilio  /> },
 
-  { name: "Jest", icon: <SiJest size={40} /> },
-  { name: "Cypress", icon: <SiCypress size={40} /> },
-  { name: "Testing Library", icon: <SiTestinglibrary size={40} /> }
-]
+  { name: "Jest", icon: <SiJest  /> },
+  { name: "Cypress", icon: <SiCypress  /> },
+  { name: "Testing Library", icon: <SiTestinglibrary  /> }
+];
 
 export default function TechStack() {
   return (
     <section className="py-16 px-4 max-w-6xl mx-auto overflow-hidden">
       <div className="text-center mb-8">
-        <InViewAnimation delay={.2}>
-        <h2 className="text-4xl md:text-5xl font-bold mb-2">🛠️ Technologies We Use</h2>
-        </InViewAnimation>
-        <InViewAnimation delay={.3}>
-        <p className="text-muted-foreground md:text-lg">Modern, scalable, and trusted tools</p>
+        <InViewAnimation >
+        <h2 className="text-4xl md:text-5xl font-bold pb-10"> Technologies We Use</h2>
         </InViewAnimation>
       </div>
-      <InViewAnimation delay={.35}>
+      <InViewAnimation >
 
-      <div className="relative mt-12 w-full overflow-hidden">
-        <div className="w-full whitespace-nowrap">
-          <motion.div
-            className="flex gap-3 md:gap-9"
-            animate={{ x: [0, -1000] }}
-            transition={{
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "linear",
-              duration: 19
-            }}
-            >
-            {techIcons.map((tech, i) => (
-              <Card
-              key={i}
-              className="w-40 h-28 flex flex-col items-center justify-center shadow-md rounded-2xl shrink-0"
-              >
-                <div className="">{tech.icon}</div>
-                <span className="text-sm font-medium text-center">{tech.name}</span>
-              </Card>
-            ))}
-          </motion.div>
-        </div>
+      <div className="relative w-full overflow-hidden">
+        <div className="relative w-full overflow-hidden py-4">
+      <div className="absolute left-0 top-0 h-full w-24 z-10 pointer-events-none bg-gradient-to-r from-zinc-950/30 to-transparent" />
+
+      <Marquee className="">
+        {[...techIcons, ...techIcons].map((tech, i) => (
+          <div
+          key={i}
+          className="flex items-center justify-center text-4xl"
+          >
+            {tech.icon}
+          </div>
+        ))}
+        </Marquee>
+      
+
+      <div className="absolute right-0 top-0 h-full w-24 z-10 pointer-events-none bg-gradient-to-l from-zinc-950/30 to-transparent" />
+    </div>
       </div>
             </InViewAnimation>
     </section>

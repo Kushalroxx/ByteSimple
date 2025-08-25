@@ -7,31 +7,31 @@ import {
 } from "../ui"
 import InViewAnimation from './inViewAnimation'
 const faqData = [
-  {
-    question: "What kind of projects do you take on?",
-    answer:
-      "We specialize in full-stack web development — from landing pages and SaaS platforms to custom dashboards and e-commerce applications."
-  },
+  // {
+  //   question: "What kind of projects do you take on?",
+  //   answer:
+  //     "We specialize in full-stack web development — from landing pages and SaaS platforms to custom dashboards and e-commerce applications."
+  // },
   {
     question: "How long does a typical project take?",
     answer:
       "It depends on the scope. Simple websites take 1–2 weeks, while larger platforms may take 3–6 weeks with active collaboration."
   },
-  {
-    question: "Do you offer fixed pricing or hourly billing?",
-    answer:
-      "We usually work on fixed-price contracts for clarity, but we also offer hourly or retainer-based billing for long-term collaborations."
-  },
+  // {
+  //   question: "Do you offer fixed pricing or hourly billing?",
+  //   answer:
+  //     "We usually work on fixed-price contracts for clarity, but we also offer hourly or retainer-based billing for long-term collaborations."
+  // },
   {
     question: "Will you handle hosting, domain, and deployment?",
     answer:
       "Yes! We handle everything end-to-end — including domain setup, server configuration, CI/CD pipelines, and deployment (e.g., Vercel, Netlify, or your choice)."
   },
-  {
-    question: "Will I be able to update the site myself later?",
-    answer:
-      "Absolutely. We build with scalability in mind. You’ll get a clean admin panel (if needed) or editable CMS integration (like Sanity or Strapi)."
-  },
+  // {
+  //   question: "Will I be able to update the site myself later?",
+  //   answer:
+  //     "Absolutely. We build with scalability in mind. You’ll get a clean admin panel (if needed) or editable CMS integration (like Sanity or Strapi)."
+  // },
   {
     question: "What if I need support after launch?",
     answer:
@@ -47,11 +47,11 @@ const faqData = [
     answer:
       "Yes, we understand budget constraints. We offer special pricing for early-stage startups and solo founders without compromising on quality. Projects can start as low as ₹15,000."
   },
-  {
-    question: "What technologies do you use most often?",
-    answer:
-      "We use modern, scalable stacks like React, Next.js, Node.js, TypeScript, Tailwind CSS, PostgreSQL, MongoDB, Firebase, and deploy on platforms like Vercel or Netlify."
-  },
+  // {
+  //   question: "What technologies do you use most often?",
+  //   answer:
+  //     "We use modern, scalable stacks like React, Next.js, Node.js, TypeScript, Tailwind CSS, PostgreSQL, MongoDB, Firebase, and deploy on platforms like Vercel or Netlify."
+  // },
   {
     question: "How many design or feature revisions are included?",
     answer:
@@ -86,20 +86,17 @@ const faqData = [
 export default function Faq() {
   return (
     <>
-     <div className="text-center mt-20 mb-8">
-      <InViewAnimation delay={.25}>
-        <h2 className="text-4xl font-bold mb-2">🙋 Frequently Asked Questions</h2>
-        </InViewAnimation>
-        <InViewAnimation delay={.3}>
-        <p className="text-muted-foreground">Answers to what clients often ask us before starting</p>
+     <div className="text-center mt-20 mb-16">
+      <InViewAnimation >
+        <h2 className="text-4xl font-bold mb-8">Frequently Asked Questions</h2>
         </InViewAnimation>
       </div>
-      <InViewAnimation delay={.4}>
+      <InViewAnimation>
     <Accordion className='max-w-4xl mx-auto px-2' type="multiple" defaultValue={["item-1"]}>
        {
            faqData.map((item, index) => (
                <AccordionItem key={index} value={`item-${index + 1}`}>
-      <AccordionTrigger style={{textDecoration:"none"}} className='text-foreground text-lg font-bold'>
+      <AccordionTrigger style={{textDecoration:"none"}} className='text-foreground text-lg font-bold hover:bg-muted/40 px-4'>
         {item.question}
       </AccordionTrigger>
 

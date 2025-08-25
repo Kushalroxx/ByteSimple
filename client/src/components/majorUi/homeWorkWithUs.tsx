@@ -2,10 +2,11 @@
 import React from 'react'
 import InViewAnimation from './inViewAnimation'
 import { Variants, motion } from 'framer-motion'
-import { Card, CardHeader } from '../ui'
+import { Button, Card, CardDescription, CardHeader } from '../ui'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { useRouter } from 'next/navigation'
 
 const settings = {
     dots: true,
@@ -35,66 +36,61 @@ const settings = {
 
 const trustBuilders = [
   {
-    title:"Fast Turnaround",
-    description:"We deliver in agile sprints so you see results quickly — no endless waiting.",
-    image:"./assets/timeHome.svg"
+    title: "Fast Turnaround",
+    description:
+      "We understand time is money. Our agile development approach means your project moves quickly from idea to launch — with regular progress updates, early access to features, and no unnecessary delays. You get to market faster without compromising on quality.",
+    image: "./assets/timeHome.svg",
   },
   {
-    title:"Tailored Solutions",
-    description:"We design fast, responsive, and user-friendly websites tailored to your business goals.",
-    image:"./assets/solutionHome.svg"
+    title: "Tailored Solutions",
+    description:
+      "No cookie-cutter templates here. Every website we build is customized to reflect your brand, target audience, and business objectives. Whether it's a sleek portfolio or a scalable e-commerce platform, we make sure it’s built to solve your unique challenges.",
+    image: "./assets/solutionHome.svg",
+  },
+  {
+    title: "Practical Strategy",
+    description:
+      "We don’t just build websites — we help you validate and scale ideas. From MVP planning to performance optimization, we apply real-world strategies to ensure every decision supports long-term growth, not just launch day success.",
+    image: "./assets/strategyHome.svg",
+  },
+  {
+    title: "Clear Communication",
+    description:
+      "No confusing tech talk or vague timelines. We keep you in the loop with regular updates, honest estimates, and open feedback loops. Our process is transparent, collaborative, and designed to give you confidence at every stage of the project.",
+    image: "./assets/communicationHome.svg",
   }
-  ,
-  {
-    title:"Practical Strategy",
-    description:"We don’t just build — we help shape smart, scalable MVPs tailored to your goals.",
-    image:"./assets/strategyHome.svg"
-  },
-  {
-    title:"Clear Communication",
-    description:"Regular updates, honest timelines, and no jargon — we speak human, not just developer.",
-    image:"./assets/communicationHome.svg"
-  }
-]
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      delayChildren: 0.2,
-      staggerChildren: 0.2,
-    },
-  },
-}
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0 },
-}
+];
+
 export default function HomeWorkWithUs() {
+  const router = useRouter()
   return (
-    <div className=' bg-black pt-20 md:pt-28 '>
-      <InViewAnimation delay={0.25}>
-      <h1 className='text-foreground text-4xl md:text-5xl text-center font-extrabold'>Why Work With Us</h1>
+    <div id='caseStudies' className=' pt-20 md:pt-28 px-2'>
+      <InViewAnimation >
+      <h1 className='text-foreground text-4xl md:text-5xl text-center font-extrabold'>We Don’t Just Build Websites — We Build Solutions</h1>
       </InViewAnimation>
-      <InViewAnimation delay={0.4}>
-      <p className='text-muted-foreground pt-2 mt-2 break-words whitespace-normal md:text-lg text-center'>Whether you're launching a product or building for a client, we bring clarity, design, and reliable code to the table.</p>
+      <InViewAnimation >
+      <p className='text-muted-foreground mt-8 break-words whitespace-normal md:text-lg text-center'>From startups to growing brands, we deliver scalable and performant websites tailored to your business. We bring a no-fluff, high-impact approach to every project — with clean code, fast loading speeds, and SEO in mind.</p>
       </InViewAnimation>
-        <motion.div variants={containerVariants} initial="hidden"  whileInView={"visible"} viewport={{once:true}} className="max-w-[70vw] sm:max-w-[56vw] relative overflow-visible md:max-w-[70vw] md:mx-auto mx-auto mt-12 mb-3">
-          <Slider className="slick-dots-visible" {...settings}>
+        <div className="max-w-6xl mx-auto pt-28 mb-3 space-y-36">
         {
           trustBuilders && trustBuilders.map((trustBuilder, index) => (
-            <motion.div whileHover={{scale: 1.005}} className='!w-[95%] sm:!w-4/5 md:!w-[290px] py-4 px-1' key={index} variants={itemVariants}>
-            <Card className='w-full h-full shadow-foreground/20 shadow-sm hover:shadow-md transition-shadow duration-300'>
-              <CardHeader className=''>
-                <img src={trustBuilder.image} alt="aboutImage" className=' rounded-xl mx-auto md:mx-0' />
-                <h1 className='text-foreground text-xl mt-8 mb-1 md:text-2xl font-extrabold'>{trustBuilder.title}</h1>
-                <p className='text-foreground/80 break-words whitespace-normal text-sm md:text-base '>{trustBuilder.description}</p>
+            <InViewAnimation whileHover={{scale: 1.005}} key={index} >
+            <div>
+              <CardHeader className='flex flex-col md:flex-row justify-center items-center md:gap-16 gap-8'>
+                <img src={trustBuilder.image} alt="aboutImage" className='w-[90%] md:w-[340px]' />
+              <CardDescription>
+                 <h1 className='text-foreground text-2xl mb-4 md:mb-6 md:text-3xl font-extrabold tracking-tight'>{trustBuilder.title}</h1>
+                <p className='text-foreground/60 break-words whitespace-normal text-sm md:text-base tracking-tight'>{trustBuilder.description}</p>
+                <div className='md:mt-10 mt-8 flex items-center gap-5'>
+                <span>Ready for real result ?</span> <Button onClick={e=>{router.push("/contact")}} 
+                className='font-semibold text-sm  px-3 '>Book a call NOW!</Button>
+                </div>
+              </CardDescription>
               </CardHeader>
-            </Card>
-            </motion.div>))
+            </div>
+            </InViewAnimation>))
         }
-        </Slider>
-        </motion.div>
+        </div>
     </div>
   )
 }

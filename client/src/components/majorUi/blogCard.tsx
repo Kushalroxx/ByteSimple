@@ -13,14 +13,14 @@ export default function BlogCard({
   slug:string
 }) {
   return (
-      <Card className="w-[87%] md:w-1/2 hover:bg-zinc-800 ">
+      <Card className="w-[87vw] sm:w-xl bg-transparent shadow-foreground/5 hover:shadow-lg transition-shadow duration-300 rounded-2xl shadow-md md:w-[39rem]  hover:bg-zinc-400/5 ">
         <Link href={`/blogs/${slug}`}>
-        <CardHeader className=" flex md:gap-6 justify-center items-center">
+        <CardHeader className=" flex flex-row gap-5 md:gap-7 justify-center items-center">
+          <img className="rounded-2xl w-[7rem] sm:w-[10rem] md:w-[17rem] " src={image} alt="blogImage" />
           <div>
-          <CardTitle className=" break-words whitespace-normal text-xl md:text-3xl font-extrabold text-shadow">{title}</CardTitle>
-          <p className="text-foreground/55 mt-2 md:mt-6 break-words whitespace-normal">{description}</p>
+          <CardTitle className=" break-words whitespace-normal text-lg md:text-2xl font-extrabold text-shadow">{title}</CardTitle>
+          <p className="text-foreground/80 md:text-base text-sm pt-2 break-words whitespace-normal">{description}</p>
           </div>
-          <img className="rounded-xl mb-5 w-[45%] md:w-[38%]" src={image} alt="blogImage" />
         </CardHeader>
         </Link>
       </Card>

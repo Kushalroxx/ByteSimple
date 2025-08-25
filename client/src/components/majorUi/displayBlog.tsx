@@ -26,7 +26,7 @@ export default async function DisplayBlog({slug}:{
     }
     
   return (
-    <div>
+    <div className='min-h-screen'>
         
         <Editor blog={blog} editable={false}/>      
     </div>

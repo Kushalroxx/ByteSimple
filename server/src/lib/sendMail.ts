@@ -11,6 +11,69 @@ const transporter = nodemailer.createTransport({
 class Mailer {
     constructor() {
     }
+    sendContactMail(email: string, name: string, phone: string, description: string):Promise<boolean> {
+      const mailOptions:MailOptions = {
+        from:'"ByteSimple" <process.env.APP_EMAIL>',
+        to: process.env.ADMIN_USER_EMAIL,
+        subject:"New contact form submission",
+        html: `<!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <title>contact form submission</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                background-color: #f6f9fc;
+                margin: 0;
+                padding: 0;
+              }
+              .container {
+                max-width: 600px;
+                margin: auto;
+                background: white;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+              }
+              .logo {
+                text-align: center;
+                margin-bottom: 20px;
+              }
+              .logo img {
+                max-height: 50px;
+              }
+              .heading {
+                text-align: center;
+                font-size: 22px;
+                margin-bottom: 20px;
+              }
+              .content {
+                margin-bottom: 20px;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <div class="logo">
+                <img src="https://bytesimple.com/images/logo.png" alt="Logo" />
+              </div>
+              <div class="heading">New contact form submission</div>
+              <div class="content">
+                <p>Name: ${name}</p>
+                <p>Email: ${email}</p>
+                <p>Phone: ${phone}</p>
+                <p>Description: ${description}</p>
+              </div>
+            </div>
+          </body>
+        </html>`,
+      };
+      
+        const data = transporter.sendMail(mailOptions).then(() => true).catch(() => false);
+        return data
+    }
     sendOtp(email: string, otp: string):Promise<boolean> {
         const mailOptions:MailOptions = {
             from: '"ByteSimple" <process.env.APP_EMAIL>',

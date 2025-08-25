@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { contactinterface } from "../../lib/interface";
 import { CustomerContact } from "../../db/schema";
+import mailer from "../../lib/sendMail";
 
 export const createContactController = async(req:Request, res:Response) => {
     const {name, email, phone, description} = req.body as contactinterface;
@@ -13,6 +14,7 @@ export const createContactController = async(req:Request, res:Response) => {
     }
     try {
         await CustomerContact.create({name, email, phone, description});
+        await mailer.sendContactMail(email, name, phone, description);
         res.status(200).json({ message: "Contact created successfully"});
     } catch (error) {
         res.status(500).json({ message: "Internal server error"});

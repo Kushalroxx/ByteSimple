@@ -27,6 +27,9 @@ export default function SideNav() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
   useEffect(() => {
+      if (user === undefined) {
+        return
+      }
     if(user?.type!=="admin"&& user?.type!=="subAdmin"){
       router.push("/")
     }
@@ -41,7 +44,7 @@ export default function SideNav() {
         {name:"Blog",href:"/admin/blog"},
     ]
     if (user?.type==="admin") {
-      navOptions.push({name:"SubAdmin",href:"/admin/subadmin"})
+      navOptions.push({name:"Create User",href:"/admin/create-user"})
     }
   return (
     <>

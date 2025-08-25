@@ -4,8 +4,17 @@ import { Blog } from "../../db/schema";
 export const getAllBlogsController = async(req:Request, res:Response) => {
     const limit = req.query.limit as string || "10";    
     const page = req.query.page as string || "1";
+    const categoryId = req.query.categoryId as string || "";
     const skip = (parseInt(page) - 1) * parseInt(limit);    
     try {
+        if (categoryId) {
+            const blogs = await Blog.find({$or:[
+                {category: categoryId},
+                {subCategory: categoryId}
+            ]}).skip(skip).limit(parseInt(limit))
+            const count = blogs.length
+        res.status(200).json({ message: "Get all blog successful", blogs,noOfBlogs:count});
+        }
         const [blogs, count] = await Promise.all([await Blog.find().skip(skip).limit(parseInt(limit)),await Blog.countDocuments()]);
         res.status(200).json({ message: "Get all blog successful", blogs,noOfBlogs:count});
     } catch (error) {

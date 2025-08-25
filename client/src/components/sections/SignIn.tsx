@@ -102,7 +102,7 @@ function SignIn({setOpen, setIsSignIn}:{
  <>
   <CardHeader>
     <AlertDialogTitle className="text-lg md:text-xl font-bold">
-      Hey there! Welcome back 👋
+      Hey there! <br></br> Welcome back 👋
     </AlertDialogTitle>
     <AlertDialogDescription className="text-muted-foreground text-sm mt-1">
       Please enter your Email and Password to sign in.

@@ -23,12 +23,19 @@ const aboutSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
-
+const blogCategorySchema = new mongoose.Schema({
+    category: { type: String, required: true }
+}, {
+    timestamps: true
+})
 const blogSchema = new mongoose.Schema({
     slug: { type: String, required: true, unique: true },
     links: { type: [String], default: [] },
     blogName: { type: String, required: true },
-    description: { type: [mongoose.Schema.Types.Mixed], required: true }
+    description: { type: [mongoose.Schema.Types.Mixed], required: true },
+    tags: { type: [String], default: [] },
+    category: { type: mongoose.Schema.Types.ObjectId, ref: "BlogCategory", required: true },
+    subCategory: { type: mongoose.Schema.Types.ObjectId, ref: "BlogCategory", required: true }
 }, {
     timestamps: true
 });
@@ -137,4 +144,5 @@ const Blog = mongoose.model("Blog", blogSchema)
 const CustomerContact = mongoose.model("CustomerContact", customerContactSchema)
 const User = mongoose.model("User", userSchema)
 const ProjectRequest = mongoose.model("ProjectRequest", projectRequestSchema)
-export { Service, ServiceDemo, About, Blog, CustomerContact, User, ProjectRequest }
+const BlogCategory = mongoose.model("BlogCategory", blogCategorySchema)
+export { Service, ServiceDemo, About, Blog, CustomerContact, User, ProjectRequest, BlogCategory }

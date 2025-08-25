@@ -7,32 +7,10 @@ import { motion,Variants } from 'framer-motion'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-
- const settings = {
-    dots: true,
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    arrows: false,
-     responsive: [
-    {
-      breakpoint: 1260,
-      settings: {
-        slidesToShow: 2,
-        arrows: false,
-      },
-    },
-    {
-      breakpoint: 844,
-      settings: {
-        slidesToShow: 1,
-        arrows: false,
-      },
-    },
-  ],
-  };
+import { FaMobileAlt, FaPalette, FaTools } from "react-icons/fa";
+import { FaSearch, FaEnvelopeOpenText } from "react-icons/fa";
+import { FiShare2 } from "react-icons/fi";
+import { RiCodeBoxFill } from "react-icons/ri";
 
 const containerVariants:Variants = {
   hidden:{
@@ -41,7 +19,7 @@ const containerVariants:Variants = {
   visible:{
     opacity:1,
     transition:{
-      delayChildren:0.2,
+      delayChildren:0.1,
       staggerChildren:0.1,
   }
 }
@@ -50,6 +28,52 @@ const itemVariants:Variants = {
   hidden:{opacity:0, y:20},
   visible:{opacity:1,y:0}
 }
+const webServices = [
+  {
+    title: "Responsive Design",
+    description: "Web interfaces that look sharp on phones, tablets, and desktops.",
+    icon: <FaMobileAlt/>,
+  },
+  {
+    title: "UI/UX Strategy",
+    description: "Thoughtful designs that enhance user interaction and retention.",
+    icon: <FaPalette/>,
+  },
+  {
+    title: "Custom Web Apps",
+    description: "Dynamic tools tailored to your business workflows.",
+    icon: <FaTools/>,
+  },
+];
+const DigitalServices = [
+  {
+    title: "Search Engine Optimization (SEO)",
+    description: "Rank higher on Google and get noticed.",
+    icon: <FaSearch/>,
+  },
+  {
+    title: "Social Media Management",
+    description: "Grow your brand and connect with your audience.",
+    icon: <FiShare2/>,
+  },
+  {
+    title: "Email Marketing",
+    description: "Send emails that your customers actually want to read.",
+    icon: <FaEnvelopeOpenText/>,
+  },
+];
+const DevServices = [
+  {
+    title: "Mobile App Development",
+    description: "Create sleek, user-friendly apps for your customers.",
+    icon: <FaMobileAlt/>,
+  },
+  {
+    title: "Custom Software Development",
+    description: "Build solutions that fit your unique needs.",
+    icon: <RiCodeBoxFill/>,
+  },
+];
 export default function ServiceContainer(
     {
       services
@@ -59,22 +83,45 @@ export default function ServiceContainer(
 ) {
   
   return (
-    <div className=' '>
-        <InViewAnimation className='w-full' delay={0.1}>
-      <h1 className='text-foreground text-4xl md:text-5xl text-center font-extrabold'>What We Do The Best !!</h1>
+    <div id='services'>
+        <InViewAnimation className='w-full' >
+      <h1 className='text-foreground text-4xl md:text-5xl text-center font-extrabold mt-32 md:mt-52'>How We Help You Grow</h1>
       </InViewAnimation>
-      <InViewAnimation className='w-full' delay={0.2}>
-        <p className='text-muted-foreground mt-2 md:mt-4 break-words whitespace-normal md:text-lg text-center'>Tailored digital solutions to elevate your online presence.</p>
-      </InViewAnimation>
-      <motion.div variants={containerVariants} initial="hidden"  whileInView={"visible"} viewport={{once:true}} className="max-w-[70vw] sm:max-w-[56vw] relative overflow-visible md:max-w-[70vw] md:mx-auto mx-auto mt-12 mb-3">
-      <Slider className="slick-dots-visible" {...settings}>
-      {
-        services && services.map((service, index) => (
-          <motion.div className='py-4 px-1' key={index} variants={itemVariants}>
-          <ServiceCard key={index} serviceName={service.serviceName} description={service.description} image={service.image} />
-          </motion.div>))
-      }
-      </Slider>
+      <motion.div variants={containerVariants} initial="hidden"  whileInView={"visible"} viewport={{once:true}} className="">
+        <h1 className='text-foreground text-3xl md:text-4xl text-center font-bold mt-28 md:mt-32'>Web design & Development</h1>
+        <div className=' grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 w-full mx-auto items-center mt-12 justify-center'>
+        {
+          webServices.map((webService, index) => (
+            <motion.div className='' key={index} variants={itemVariants}>
+            <ServiceCard key={index} title={webService.title} description={webService.description} icon={webService.icon} />
+            </motion.div>
+          ))
+        }
+        </div>
+      </motion.div>
+      <motion.div variants={containerVariants} initial="hidden"  whileInView={"visible"} viewport={{once:true}} className="">
+        <h1 className='text-foreground text-3xl md:text-4xl text-center font-bold mt-32'>Digital Marketing & Strategy</h1>
+        <div className=' grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 w-full mx-auto items-center mt-12 justify-center'>
+        {
+          DigitalServices.map((webService, index) => (
+            <motion.div className='' key={index} variants={itemVariants}>
+            <ServiceCard key={index} title={webService.title} description={webService.description} icon={webService.icon} />
+            </motion.div>
+          ))
+        }
+        </div>
+      </motion.div>
+      <motion.div variants={containerVariants} initial="hidden"  whileInView={"visible"} viewport={{once:true}} className="">
+        <h1 className='text-foreground text-3xl md:text-4xl text-center font-bold mt-32'>Software & App Development</h1>
+        <div className=' grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 w-full mx-auto items-center mt-12 justify-center'>
+        {
+          DevServices.map((webService, index) => (
+            <motion.div className='' key={index} variants={itemVariants}>
+            <ServiceCard key={index} title={webService.title} description={webService.description} icon={webService.icon} />
+            </motion.div>
+          ))
+        }
+        </div>
       </motion.div>
     </div>
   )

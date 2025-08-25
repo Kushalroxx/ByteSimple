@@ -8,18 +8,15 @@ import InViewAnimation from './inViewAnimation'
 export default function ServiceCTA() {
   const router = useRouter()
   return (
-    <div className=' flex flex-col justify-center h-[70vh] md:h-screen'>
-      <InViewAnimation delay={.25}>
-      <h1 className='text-4xl md:text-7xl font-extrabold text-foreground md:w-[75%]'>Let’s Build Something Great Together</h1>
+    <div className=' flex flex-col justify-center items-center h-[60vh] md:h-[70vh] bg-gradient-to-br from-pink-950 via-indigo-700 rounded-3xl to-indigo-950 my-10 px-5 md:!px-20 text-center'>
+      <InViewAnimation>
+      <h1 className='text-3xl md:text-4xl font-extrabold text-foreground'>Let’s Build Something Great Together</h1>
       </InViewAnimation>
-      <InViewAnimation delay={.4}>
-      <p className='text-foreground/80 mt-10 break-words whitespace-normal md:text-lg md:w-[57%]'>Whether you're just starting or ready to scale, we’re here to craft a web solution that works for you.</p>
+      <InViewAnimation >
+      <p className='text-foreground/80 mt-6 md:mt-8 break-words whitespace-normal md:text-lg'>Whether you're just starting or ready to scale, we’re here to craft a web solution that works for you.</p>
       </InViewAnimation>
-      <InViewAnimation delay={.5} className='flex items-center gap-4 mt-8'>
-        <>
-      <Button onClick={() => router.push("/contactus")} className='py-5 md:text-base text-sm font-semibold'>Get a Free Quote</Button>
-      <Button variant={"outline"} className='py-5 md:text-base text-sm font-semibold' onClick={()=>router.push("/demos")}>View Portfolio</Button>
-      </>
+      <InViewAnimation className='flex items-center gap-4 mt-10 md:mt-12'>
+      <Button onClick={() => router.push("/contactus")} className=' py-4 md:py-6 md:text-base text-sm font-semibold  transition-all duration-300 hover:shadow-lg shadow-xl shadow-black/40'>Let’s Get Started</Button>
       </InViewAnimation>
     </div>
   )

@@ -14,7 +14,9 @@ import { Button,
   CardFooter, 
   CardHeader, 
   CardTitle, 
-  Loader} from '../ui'
+  Loader,
+  Label,
+  Input} from '../ui'
 import FirstFormSection from './firstFormSection'
 import SecondFormSection from './secondFormSection'
 import ThirdFormSection from './thirdFormSection'
@@ -38,12 +40,44 @@ export default function CreateProject() {
     const [techPreference, setTechPreference] = React.useState("")
     const [maxBudget, setMaxBudget] = React.useState("")
     const [minBudget, setMinBudget] = React.useState("")
+    const [userEmail, setUserEmail] = React.useState("")
     const [error, setError] = React.useState("")
+    const [existedUser, setExistedUser] = React.useState<null|boolean>(null)
 
     useEffect(() => {
       setError("")
-    },[projectName, projectDesc, designPreference, projectType, maxBudget, minBudget, techPreference])
+      setExistedUser(null)
+    },[projectName, projectDesc, designPreference, projectType, maxBudget, minBudget, techPreference, userEmail])
+    const checkUser = async()=>{
+      if(error === "User not found"){
+        setError("")
+      }
+      setExistedUser(null)
+      try {
+       await axios.post(`${serverUrl}/super-admin/check-user`,{userEmail}, { withCredentials: true })
+        setExistedUser(true)
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          if (error.status === 400) {
+            setExistedUser(false)
+            setError(error.response?.data.message)
+            return
+          }
+          if (error.status === 401) {
+            setUser(null)
+            router.push("/")
+            return
+          }
+        }
+      }
+    }
     const handleCreate = async()=>{
+      if (user?.type=== "admin") {
+        if (!userEmail) {
+          setError("User email is required")
+          return
+        }
+      }
       if (!projectName) {
         setError("Project name is required")
         return
@@ -71,7 +105,7 @@ export default function CreateProject() {
       }
       try{
         setLoading(true)
-        const res = await axios.post(`${serverUrl}/user/create-project`, { projectTitle:projectName, projectDescription:projectDesc, designPreference, projectType, maxBudget, minBudget, techPreference }, { withCredentials: true })
+        const res = await axios.post(`${serverUrl}/${user?.type==="admin"?"super-admin":"user"}/create-project`, { projectTitle:projectName, projectDescription:projectDesc, designPreference, projectType, maxBudget, minBudget, techPreference, userEmail }, { withCredentials: true })
         setProjectName("")
         setProjectDesc("")
         setDesignPreference("")
@@ -122,6 +156,21 @@ export default function CreateProject() {
     </CardHeader>
 
     <CardContent className="">
+      {
+        user?.type==="admin"&& steps === 1 &&
+          <div className="flex items-center gap-2 mb-2">
+          <Label className="text-sm md:text-base font-semibold mb-1 text-foreground">
+            User Email:
+          </Label>
+          <Input
+            placeholder="Enter user email"
+            value={userEmail}
+            onChange={(e) => setUserEmail(e.target.value)}
+            className={`rounded-lg text-base ${userEmail&&existedUser===false?"border-red-500":""} ${userEmail&&existedUser===true?"border-green-500":""}`}
+          />
+          <Button onClick={checkUser}>Check</Button>
+        </div>
+      }
       {steps === 1 && (
         <FirstFormSection
           projectDesc={projectDesc}

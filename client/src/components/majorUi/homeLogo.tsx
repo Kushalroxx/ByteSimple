@@ -1,26 +1,27 @@
 "use client";
 import { motion } from "framer-motion";
+import { Marquee } from '../magicui/marquee'
+import { FaNodeJs, FaReact } from 'react-icons/fa'
+import { SiNginx, SiTypescript } from 'react-icons/si'
+import { RiNextjsFill, RiTailwindCssFill } from 'react-icons/ri'
 
+const icons = [
+ <FaReact />,
+ <SiTypescript />,
+ <FaNodeJs />,
+ <RiTailwindCssFill />,
+ <SiNginx />,
+ <RiNextjsFill />
+];
+ 
 export default function HomeLogo({className}:{className?:string}) {
   return (
-    <div className={`${className} hidden md:flex w-full h-full`}>
-    <div className="relative flex items-center justify-center w-full h-full ">
-      <motion.img
-        initial={{ rotate: -180, opacity: 0 }}
-        animate={{ rotate: 0, opacity: 1 }}
-        // onHoverStart={{ rotate: -180 }}
-        transition={{ duration: 2, ease: "linear", type:"spring"}}
-        src={"/assets/circle.webp"}
-        className="absolute "
-      />
-      <motion.img
-      initial={{opacity: 0, x:10}}
-      animate={{opacity:1, x:0}}
-      transition={{duration:.3}}
-        src={"/assets/logo.png"}
-        className="absolute md:w-[170px] lg:w-[230px]"
-      />
-    </div>
-    </div>
+   <motion.div className="mt-8 mb:mt-16 flex justify-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0,}} viewport={{ once: true }} transition={{delay:0.5}}>
+          {icons.map((icon, i) => (
+            <span key={i} className="inline-block mx-2 text-2xl md:text-3xl">
+              {icon}
+            </span>
+          ))}
+        </motion.div>
   );
 }
