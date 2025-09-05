@@ -2,10 +2,11 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Textarea, Card, CardHeader } from "@/components/ui"
+import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Textarea, Card, CardHeader, Loader } from "@/components/ui"
 import axios from "axios"
 import { serverUrl } from "@/lib/exportEnv"
 import { useRouter } from "nextjs-toploader/app"
+import { useState } from "react"
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -25,7 +26,11 @@ const fields = [
     { name: "phone", label: "Phone Number", placeholder: "Enter your phone number", component: Input },
     { name: "description", label: "Description", placeholder: "Enter your description", component: Textarea },
   ] as const 
-export function ContactForm() {
+export function ContactForm({loading,setLoading}:{
+  loading:boolean,
+  setLoading:React.Dispatch<React.SetStateAction<boolean>>
+}) {
+  
     const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -38,12 +43,16 @@ export function ContactForm() {
       })
       const onSubmit= async(data: z.infer<typeof formSchema>)=> {
         try{
+          setLoading(true)
             const res = await axios.post(`${serverUrl}/contacts`,data)
             router.push("/success")
         }catch(error){
             console.log(error);
+        }finally{
+          setLoading(false)
         }
       }
+      
   return (
     <Card className="w-xl bg-transparent border-none">
         <CardHeader className="space-y-5">

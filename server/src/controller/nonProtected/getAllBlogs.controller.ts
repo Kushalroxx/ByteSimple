@@ -4,7 +4,7 @@ import { Blog } from "../../db/schema";
 export const getAllBlogsController = async(req:Request, res:Response) => {
     const limit = req.query.limit as string || "10";    
     const page = req.query.page as string || "1";
-    const categoryId = req.query.categoryId as string || "";
+    const categoryId = req.query.categoryId as string || "";    
     const skip = (parseInt(page) - 1) * parseInt(limit);    
     try {
         if (categoryId) {

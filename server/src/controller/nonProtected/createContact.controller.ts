@@ -5,18 +5,23 @@ import mailer from "../../lib/sendMail";
 
 export const createContactController = async(req:Request, res:Response) => {
     const {name, email, phone, description} = req.body as contactinterface;
+    
     if (!name || !email || !phone || !description) {
         res.status(400).json({ message: "All fields are required"});
-    }
-    const existedContact = await CustomerContact.findOne({email});
-    if (existedContact) {
-        res.status(400).json({ message: "Contact already exists"});
+        return
     }
     try {
+        const existedContact = await CustomerContact.findOne({email});
+        if (existedContact) {
+            res.status(400).json({ message: "Contact already exists"});
+            return 
+        }
         await CustomerContact.create({name, email, phone, description});
         await mailer.sendContactMail(email, name, phone, description);
         res.status(200).json({ message: "Contact created successfully"});
+        return
     } catch (error) {
         res.status(500).json({ message: "Internal server error"});
+        return
     }
 }

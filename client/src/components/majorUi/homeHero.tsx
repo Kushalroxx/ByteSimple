@@ -8,7 +8,7 @@ export default function HomeHero() {
   return (
     <>
     <div className='relative overflow-hidden h-[88vh] mt-8'>
-          <WavyBackground blur={15} speed='fast' className='overflow-hidden absolute z-0' >
+          <WavyBackground blur={10} speed='fast' className='overflow-hidden absolute z-0' >
           <section className=" relative flex flex-col justify-center items-center z-20 ">
             <HomeText />
           </section>

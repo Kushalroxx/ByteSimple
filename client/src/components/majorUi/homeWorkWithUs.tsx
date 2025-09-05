@@ -1,11 +1,9 @@
 "use client"
 import React from 'react'
 import InViewAnimation from './inViewAnimation'
-import { Variants, motion } from 'framer-motion'
 import { Button, Card, CardDescription, CardHeader } from '../ui'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 import { useRouter } from 'next/navigation'
 
 const settings = {
@@ -65,13 +63,13 @@ export default function HomeWorkWithUs() {
   const router = useRouter()
   return (
     <div id='caseStudies' className=' pt-20 md:pt-28 px-2'>
-      <InViewAnimation >
-      <h1 className='text-foreground text-4xl md:text-5xl text-center font-extrabold'>We Don’t Just Build Websites — We Build Solutions</h1>
+      <InViewAnimation className='flex justify-center items-center'>
+      <h1 className='text-foreground text-4xl md:text-5xl text-center font-extrabold'>We Don’t Just Build Websites —<br />We Build Solutions</h1>
       </InViewAnimation>
-      <InViewAnimation >
-      <p className='text-muted-foreground mt-8 break-words whitespace-normal md:text-lg text-center'>From startups to growing brands, we deliver scalable and performant websites tailored to your business. We bring a no-fluff, high-impact approach to every project — with clean code, fast loading speeds, and SEO in mind.</p>
+      <InViewAnimation  className='flex justify-center items-center' >
+      <p className='text-muted-foreground mt-8 break-words whitespace-normal md:text-lg text-center max-w-5xl'>From startups to growing brands, we deliver scalable and performant websites tailored to your business. We bring a no-fluff, high-impact approach to every project — with clean code, fast loading speeds, and SEO in mind.</p>
       </InViewAnimation>
-        <div className="max-w-6xl mx-auto pt-28 mb-3 space-y-36">
+        <div className="max-w-5xl mx-auto pt-28 mb-3 space-y-36">
         {
           trustBuilders && trustBuilders.map((trustBuilder, index) => (
             <InViewAnimation whileHover={{scale: 1.005}} key={index} >

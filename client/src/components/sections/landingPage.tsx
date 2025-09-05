@@ -26,7 +26,7 @@ export default function LandingPage({
     <div onClick={e=>{
       e.stopPropagation()
       setIsOpen(false)
-    }} className='w-full overflow-x-hidden bg-gradient-to-b from-black via-indigo-950 to-black'>
+    }} className='w-full overflow-x-hidden bg-gradient-to-bl from-black via-gray-900 to-black'>
       <HomeHero/>
       <div className='px-4 md:px-10 space-y-24'>
       <HomeWorkWithUs/>
@@ -35,7 +35,7 @@ export default function LandingPage({
         <TestimonialsSection/>
       </div>
       {/* <EngagementModelsSection/> */}
-      <TechStack/>
+      {/* <TechStack/> */}
       <Faq/>
       <ServiceCTA/>
       </div>

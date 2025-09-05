@@ -14,13 +14,13 @@ import { serverUrl } from "@/lib/exportEnv";
 import DesktopMenu from "./desktopMenu";
 import MobileMenu from "./mobileMenu";
 
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = useAtom(navOpenAtom);
   const [user, setUser] = useAtom(userAtom);
   const pathname = usePathname();
   const [signInOpen, setSignInOpen] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
 
   const navItems = [
@@ -48,7 +48,7 @@ export default function Navbar() {
       try {
         const res = await axios.get(`${serverUrl}/check`, { withCredentials: true });
         setUser(res.data.user);
-      } catch (err) {
+      } catch {
         setUser(null);
       }
     };
@@ -63,53 +63,63 @@ export default function Navbar() {
     } catch {}
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) setScrolled(true);
+      else setScrolled(false);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: -5 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2, type: "keyframes" }}
-      className="fixed w-dvw overflow-hidden top-0 z-50  shadow-xl shadow-zinc-950/20 font-archivo text-[#b5b4b2] bg-background "
-    >
-      <div className="w-full flex justify-between items-center px-8 md:py-4 py-2 border-b border-zinc-900 backdrop-blur backdrop-opacity-90">
-        <Link href="/" className="text-3xl">
-          <img src="/assets/logo.png" alt="Logo" className="w-20 md:w-[105px]" />
-        </Link>
+    <>
+   <motion.nav
+  initial={{ opacity: 0, y: -5 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.2, type: "keyframes" }}
+  className={`fixed left-1/2 -translate-x-1/2 z-50 font-archivo text-[#b5b4b2] transition-all duration-300
+    ${scrolled
+      ? "top-4 w-[90%] rounded-full bg-background backdrop-blur border border-zinc-900"
+      : "top-0 w-full rounded-none bg-background border-b border-zinc-900"
+    }`}
+>
+  <div className="flex justify-between items-center px-8 py-2">
+    <Link href="/" className="text-3xl">
+      <img src="/assets/logo.png" alt="Logo" className="w-16 md:w-26" />
+    </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex">
-          <DesktopMenu
-            navItems={navItems}
-            pathname={pathname}
-            user={user}
-            onLogout={handleLogOut}
-            signInOpen={signInOpen}
-            setSignInOpen={setSignInOpen}
-          />
-        </div>
-
-        {/* Hamburger */}
-        <div className="lg:hidden text-4xl">
-          <button onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <MdClose /> : <TiThMenu />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {
-        <div className="w-full relative overflow-hidden">
-          <MobileMenu
-        isOpen={isOpen}
+    {/* Desktop Menu */}
+    <div className="hidden lg:flex px-10">
+      <DesktopMenu
         navItems={navItems}
         pathname={pathname}
         user={user}
         onLogout={handleLogOut}
         signInOpen={signInOpen}
         setSignInOpen={setSignInOpen}
-        closeMenu={() => setIsOpen(false)}
-      />
-        </div>
-      }
-    </motion.nav>
+        />
+    </div>
+    {/* Hamburger */}
+    <div className="lg:hidden text-3xl">
+      <button onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? <MdClose /> : <TiThMenu />}
+      </button>
+    </div>
+  </div>
+</motion.nav>
+<div className="w-full relative overflow-hidden">
+        <MobileMenu
+          isOpen={isOpen}
+          navItems={navItems}
+          pathname={pathname}
+          user={user}
+          onLogout={handleLogOut}
+          signInOpen={signInOpen}
+          setSignInOpen={setSignInOpen}
+          closeMenu={() => setIsOpen(false)}
+          />
+      </div>
+          </>
   );
 }

@@ -26,7 +26,7 @@ export default function PaginationForBlog({ page, noOfPages }: {
         <Pagination className="my-10">
             <PaginationContent>
                 <PaginationItem>
-                    <PaginationPrevious href={`/blogs?page=${page-1>=1&&page-1}`} />
+                    <PaginationPrevious href={`/blogs?page=${page-1>=1?page-1:page}`} />
                 </PaginationItem>
                 {
                     getPageNumber().map((e, i) => (
@@ -42,7 +42,7 @@ export default function PaginationForBlog({ page, noOfPages }: {
                     ))
                 }
                 <PaginationItem>
-                    <PaginationNext href={`/blogs?page=${page+1<=noOfPages&&page+1}`} />
+                    <PaginationNext href={`/blogs?page=${page+1<=noOfPages?page+1:page}`} />
                 </PaginationItem>
             </PaginationContent>
         </Pagination>

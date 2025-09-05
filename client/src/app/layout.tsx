@@ -12,10 +12,10 @@ const poppins = Poppins({
   variable: '--font-poppins',  
 });
 export const metadata: Metadata = {
-  title: "ByteSimple",
-  description: "ByteSimple provides top-tier services in app development specifically for web development with unmatched commitment and expertise. Explore our demos, services, blogs, and more.",
+  title: "ByteXylon",
+  description: "ByteXylon provides top-tier services in app development specifically for web development with unmatched commitment and expertise. Explore our demos, services, blogs, and more.",
   keywords: [
-    "ByteSimple",
+    "ByteXylon",
   "web development agency",
   "Software development",
   "Enterprise software",
@@ -59,7 +59,7 @@ export default function RootLayout({
   return (
     <html className="dark" lang="en">
       <body
-        className={`${poppins.className} antialiased`}
+        className={`m-0 p-0 ${poppins.className} antialiased`}
       >
          <NextTopLoader showSpinner={false} />
          <Navbar/>

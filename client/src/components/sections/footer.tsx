@@ -8,7 +8,7 @@ export default function Footer() {
    <div className="border-t border-t-foreground/15 px-4 md:px-10 py-8 bg-black text-white">
   <div className="flex flex-col gap-8 md:flex-row md:justify-between md:items-start flex-wrap">
     <div className="md:w-1/4 min-w-[200px]">
-      <img className='w-22 md:w-32' src={"/assets/logo.png"} alt="logo" />
+      <img className='w-22 md:w-28' src={"/assets/logo.png"} alt="logo" />
       <p className="text-sm text-foreground/80">Helping you build fast, user-focused digital products.</p>
     </div>
 
@@ -56,7 +56,7 @@ export default function Footer() {
 
 
   <div className="mt-8 border-t border-foreground/10 pt-4 text-center text-xs text-foreground/50">
-    © {new Date().getFullYear()} ByteSimple. All rights reserved.
+    © {new Date().getFullYear()} ByteXylon. All rights reserved.
   </div>
 </div>
 

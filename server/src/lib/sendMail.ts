@@ -13,7 +13,7 @@ class Mailer {
     }
     sendContactMail(email: string, name: string, phone: string, description: string):Promise<boolean> {
       const mailOptions:MailOptions = {
-        from:'"ByteSimple" <process.env.APP_EMAIL>',
+        from:'"ByteXylon" <process.env.APP_EMAIL>',
         to: process.env.ADMIN_USER_EMAIL,
         subject:"New contact form submission",
         html: `<!DOCTYPE html>
@@ -56,9 +56,6 @@ class Mailer {
           </head>
           <body>
             <div class="container">
-              <div class="logo">
-                <img src="https://bytesimple.com/images/logo.png" alt="Logo" />
-              </div>
               <div class="heading">New contact form submission</div>
               <div class="content">
                 <p>Name: ${name}</p>
@@ -76,7 +73,7 @@ class Mailer {
     }
     sendOtp(email: string, otp: string):Promise<boolean> {
         const mailOptions:MailOptions = {
-            from: '"ByteSimple" <process.env.APP_EMAIL>',
+            from: '"ByteXylon" <process.env.APP_EMAIL>',
             to: email,
             subject:"Your One-Time Password (OTP)",
             html: `<!DOCTYPE html>
@@ -142,14 +139,14 @@ class Mailer {
     <div class="container">
       <div class="logo">
         <!-- Optional logo -->
-        <img src="https://yourdomain.com/logo.png" alt="ByteSimple" />
+        <img src="https://yourdomain.com/logo.png" alt="ByteXylon" />
       </div>
       <div class="heading">Your One-Time Password (OTP)</div>
       <div class="otp-box">${otp}</div>
       <div class="text">Use this OTP to complete your login. The code is valid for 5 minutes.</div>
       <div class="text">If you did not request this, please ignore this email.</div>
       <div class="footer">
-        &copy; 2025 ByteSimple. All rights reserved.
+        &copy; 2025 ByteXylon. All rights reserved.
       </div>
     </div>
   </body>
@@ -161,7 +158,7 @@ class Mailer {
     }
     sendPasswordMail(email: string, token: string):Promise<boolean> {
         const mailOptions:MailOptions = {
-            from: '"ByteSimple" <process.env.APP_EMAIL>',
+            from: '"ByteXylon" <process.env.APP_EMAIL>',
             to: email,
             subject:"Your Password reset link",
             html: `<!DOCTYPE html>
@@ -210,7 +207,7 @@ class Mailer {
             </tr>
             <tr>
               <td style="padding-top: 30px; color: #cccccc; font-size: 12px; text-align: center;">
-                © ${new Date().getFullYear()} ByteSimple. All rights reserved.
+                © ${new Date().getFullYear()} ByteXylon. All rights reserved.
               </td>
             </tr>
           </table>

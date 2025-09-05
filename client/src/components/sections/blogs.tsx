@@ -6,7 +6,7 @@ import PaginationForBlog from "../majorUi/paginationForBlog";
 
 export default async function Blogs({page}:{page:number}) {
   try {
-    const res = await fetch(`${serverUrl}/blogs?page=${page||1}`,{next:{revalidate:604800}})
+    const res = await fetch(`${serverUrl}/blogs?page=${page||1}`,{next:{},cache:"no-store"})
     console.log(res);
     
     const data = await res.json()

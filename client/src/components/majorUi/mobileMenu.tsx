@@ -43,7 +43,7 @@ export default function MobileMenu({
 
           {/* Drawer */}
           <motion.div
-            className="fixed top-0 right-0 h-full w-3/4  bg-black shadow-lg z-50 flex flex-col px-6 pt-3 gap-6"
+            className="fixed top-0 right-0 h-screen w-3/4  bg-black shadow-lg z-50 flex flex-col px-6 pt-3 gap-6"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -73,7 +73,7 @@ export default function MobileMenu({
                       </button>
 
                       </div>
-            {user ? (
+            {/* {user ? (
                 <Popover>
                   <PopoverTrigger className="flex items-center gap-2 text-lg">
                     <FaUser />
@@ -103,7 +103,7 @@ export default function MobileMenu({
                     Login
                   </Button>
                 </Auth>
-              )}
+              )} */}
           </motion.div>
         </>
       )}

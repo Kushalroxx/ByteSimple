@@ -19,12 +19,12 @@ export default function DesktopMenu({ navItems, pathname, user, signInOpen, setS
         <Link
           key={item.href}
           href={item.href}
-          className={`hover:text-cyan-600 transition ${pathname.startsWith(item.href) ? "text-cyan-500 underline underline-offset-4" : ""}`}
+          className={`hover:text-cyan-600 transition font-medium ${pathname.startsWith(item.href) ? "text-cyan-500 underline underline-offset-4" : "text-zinc-200"}`}
         >
           {item.label}
         </Link>
       ))}
-      {user ? (
+      {/* {user ? (
         <Popover>
           <PopoverTrigger>
             <FaUser className="text-xl" />
@@ -47,7 +47,7 @@ export default function DesktopMenu({ navItems, pathname, user, signInOpen, setS
             Login
           </Button>
         </Auth>
-      )}
+      )} */}
     </div>
   );
 }
